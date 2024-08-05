@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DH = void 0;
 const jquery_1 = __importDefault(require("jquery"));
-const appinfo_1 = require("./appinfo");
+const app_info_1 = require("./app.info");
 const crypto_js_1 = __importDefault(require("crypto-js"));
 const bigi_1 = __importDefault(require("bigi"));
 const getPrimes = function (min, max) {
@@ -83,9 +83,9 @@ class DH {
         this.requestPublicKey(this, callback, aurl);
     }
     getAccessorInfo() {
-        console.log("dh.js: BASE_STORAGE", (0, appinfo_1.getBaseStorage)());
+        console.log("dh.js: BASE_STORAGE", (0, app_info_1.getBaseStorage)());
         let info = undefined;
-        if ("local" == (0, appinfo_1.getBaseStorage)()) {
+        if ("local" == (0, app_info_1.getBaseStorage)()) {
             info = localStorage.getItem("accessorinfo");
         }
         else {
@@ -105,7 +105,7 @@ class DH {
     }
     requestPublicKey(dh, callback, aurl) {
         if (!aurl)
-            aurl = (0, appinfo_1.getApiUrl)() + "/api/crypto/dh";
+            aurl = (0, app_info_1.getApiUrl)() + "/api/crypto/dh";
         let authtoken = this.getAccessorToken();
         jquery_1.default.ajax({
             url: aurl,
@@ -135,7 +135,7 @@ class DH {
     }
     submitPublicKey(callback, aurl) {
         if (!aurl)
-            aurl = (0, appinfo_1.getApiUrl)() + "/api/crypto/dh";
+            aurl = (0, app_info_1.getApiUrl)() + "/api/crypto/dh";
         let authtoken = this.getAccessorToken();
         jquery_1.default.ajax({
             url: aurl,
@@ -160,7 +160,7 @@ class DH {
     }
     updatePublicKey(callback, aurl) {
         if (!aurl)
-            aurl = (0, appinfo_1.getApiUrl)() + "/api/crypto/update";
+            aurl = (0, app_info_1.getApiUrl)() + "/api/crypto/update";
         let authtoken = this.getAccessorToken();
         jquery_1.default.ajax({
             url: aurl,

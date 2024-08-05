@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.decryptCipherData = exports.serializeParameters = exports.setupApplication = exports.startApplication = exports.confirmRevise = exports.confirmResend = exports.confirmExport = exports.confirmImport = exports.confirmRequest = exports.confirmReject = exports.confirmApprove = exports.confirmErase = exports.confirmReset = exports.confirmReceive = exports.confirmSaveAs = exports.confirmProcess = exports.confirmClear = exports.confirmUpdate = exports.confirmSend = exports.confirmRemove = exports.confirmCancel = exports.confirmSave = exports.confirmDelete = exports.confirmDialogBox = exports.confirmmsg = exports.alertmsg = exports.confirmDialog = exports.confirmbox = exports.alertDialog = exports.alertbox = exports.warningbox = exports.successbox = exports.detectErrorResponse = exports.parseErrorThrown = exports.submitFailure = exports.stopWaiting = exports.startWaiting = exports.openNewWindow = exports.submitWindow = exports.addWindow = exports.closeChildWindows = exports.getWindowByName = void 0;
 const jquery_1 = __importDefault(require("jquery"));
 const bootbox_1 = __importDefault(require("bootbox"));
-const msgutil_1 = require("./msgutil");
+const msg_util_1 = require("./msg.util");
 const messenger_1 = require("./messenger");
-const appinfo_1 = require("./appinfo");
+const app_info_1 = require("./app.info");
 const fs_winary = new Array();
 function getWindowByName(winname) {
     if (!winname)
@@ -230,19 +230,19 @@ function detectErrorResponse(data) {
 }
 exports.detectErrorResponse = detectErrorResponse;
 function successbox(callback, params) {
-    let title = (0, msgutil_1.getMessageCode)("fsinfo", undefined, "Information");
+    let title = (0, msg_util_1.getMessageCode)("fsinfo", undefined, "Information");
     alertbox("QS0004", callback, undefined, params, undefined, title, "fa fa-info-circle");
 }
 exports.successbox = successbox;
 function warningbox(errcode, callback, params) {
-    let title = (0, msgutil_1.getMessageCode)("fswarn", undefined, "Warning");
+    let title = (0, msg_util_1.getMessageCode)("fswarn", undefined, "Warning");
     alertbox(errcode, callback, undefined, params, undefined, title, "fa fa-exclamation-circle");
 }
 exports.warningbox = warningbox;
 function alertbox(errcode, callback, defaultmsg, params, addonmsg, title, icon) {
     if (!title || title.trim().length == 0)
-        title = (0, msgutil_1.getMessageCode)("fsalert", undefined, "Alert");
-    let txt = (0, msgutil_1.getMessageCode)(errcode, params);
+        title = (0, msg_util_1.getMessageCode)("fsalert", undefined, "Alert");
+    let txt = (0, msg_util_1.getMessageCode)(errcode, params);
     if (txt != null && txt != "") {
         if (addonmsg)
             txt += " " + addonmsg;
@@ -266,7 +266,7 @@ function alertDialog(msg, callbackfn, title = "Alert", icon = "fa fa-bell-o") {
         return;
     }
     try {
-        let fs_okbtn = (0, msgutil_1.getMessageCode)("fsokbtn");
+        let fs_okbtn = (0, msg_util_1.getMessageCode)("fsokbtn");
         if (!fs_okbtn || (fs_okbtn == "" || fs_okbtn == "fsokbtn"))
             fs_okbtn = "OK";
         bootbox_1.default.alert({
@@ -293,8 +293,8 @@ function alertDialog(msg, callbackfn, title = "Alert", icon = "fa fa-bell-o") {
 exports.alertDialog = alertDialog;
 function confirmbox(errcode, okFn, cancelFn, defaultmsg, params, addonmsg, title, icon) {
     if (!title || title.trim().length == 0)
-        title = (0, msgutil_1.getMessageCode)("fsconfirm", undefined, "Confirmation");
-    let txt = (0, msgutil_1.getMessageCode)(errcode, params);
+        title = (0, msg_util_1.getMessageCode)("fsconfirm", undefined, "Confirmation");
+    let txt = (0, msg_util_1.getMessageCode)(errcode, params);
     if (txt != null && txt != "") {
         if (addonmsg)
             txt += " " + addonmsg;
@@ -314,10 +314,10 @@ function confirmbox(errcode, okFn, cancelFn, defaultmsg, params, addonmsg, title
 exports.confirmbox = confirmbox;
 function confirmDialog(msg, okCallback, cancelCallback, title = "Confirmation", icon = "fa fa-question-circle") {
     try {
-        let fs_confirmbtn = (0, msgutil_1.getMessageCode)("fsconfirmbtn");
+        let fs_confirmbtn = (0, msg_util_1.getMessageCode)("fsconfirmbtn");
         if (!fs_confirmbtn || (fs_confirmbtn == "" || fs_confirmbtn == "fsconfirmbtn"))
             fs_confirmbtn = "OK";
-        let fs_cancelbtn = (0, msgutil_1.getMessageCode)("fscancelbtn");
+        let fs_cancelbtn = (0, msg_util_1.getMessageCode)("fscancelbtn");
         if (!fs_cancelbtn || (fs_cancelbtn == "" || fs_cancelbtn == "fscancelbtn"))
             fs_cancelbtn = "Cancel";
         bootbox_1.default.confirm({
@@ -512,7 +512,7 @@ function serializeParameters(parameters, addonParameters, raw) {
     }
     let jsondata = {};
     let cipherdata = false;
-    if (raw || (0, appinfo_1.getDefaultRawParameters)()) {
+    if (raw || (0, app_info_1.getDefaultRawParameters)()) {
         jsondata = parameters;
     }
     else {
@@ -528,7 +528,7 @@ function serializeParameters(parameters, addonParameters, raw) {
     console.log("serialize: parameters", JSON.stringify(parameters));
     console.log("serialize: jsondata", JSON.stringify(jsondata));
     let token = (0, messenger_1.getAccessorToken)();
-    let headers = { "authtoken": token, "data-type": cipherdata ? "json/cipher" : "", language: (0, appinfo_1.getDefaultLanguage)() };
+    let headers = { "authtoken": token, "data-type": cipherdata ? "json/cipher" : "", language: (0, app_info_1.getDefaultLanguage)() };
     //console.log("serialize: headers",JSON.stringify(headers));
     return { cipherdata: cipherdata, jsondata: jsondata, headers: headers };
 }

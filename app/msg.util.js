@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.replaceString = exports.getMessageCode = void 0;
-const appinfo_1 = require("./appinfo");
+const app_info_1 = require("./app.info");
 function getMessageCode(errcode, params, defaultMessage) {
     if (errcode && errcode.trim().length > 0) {
-        let program_message = (0, appinfo_1.getProgramMessage)();
-        let lang = (0, appinfo_1.getDefaultLanguage)();
+        let program_message = (0, app_info_1.getProgramMessage)();
+        let lang = (0, app_info_1.getDefaultLanguage)();
         if (!lang || lang.trim().length == 0)
             lang = "EN";
         let msg = program_message.find((item) => { return item.code == errcode; });

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getDH = exports.setupDiffie = exports.handleRequestMessage = exports.sendMessageToOpener = exports.sendMessageToParent = exports.requestAccessorInfo = exports.sendMessageToFrame = exports.sendMessageInterface = exports.removeAccessorInfo = exports.saveAccessorInfo = exports.getAccessorToken = exports.getAccessorInfo = exports.removeStorage = exports.setStorage = exports.getStorage = exports.getCurrentWindow = exports.setCurrentWindow = exports.setMessagingCallback = void 0;
-const appinfo_js_1 = require("./appinfo.js");
-const dh_js_1 = require("./dh.js");
+const app_info_1 = require("./app.info");
+const dh_1 = require("./dh");
 var messagingCallback;
 var currentWindow;
 function setMessagingCallback(callback) {
@@ -16,14 +16,14 @@ exports.setCurrentWindow = setCurrentWindow;
 function getCurrentWindow() { return currentWindow; }
 exports.getCurrentWindow = getCurrentWindow;
 function getStorage(key) {
-    if ("local" == (0, appinfo_js_1.getBaseStorage)()) {
+    if ("local" == (0, app_info_1.getBaseStorage)()) {
         return localStorage.getItem(key);
     }
     return sessionStorage.getItem(key);
 }
 exports.getStorage = getStorage;
 function setStorage(key, value) {
-    if ("local" == (0, appinfo_js_1.getBaseStorage)()) {
+    if ("local" == (0, app_info_1.getBaseStorage)()) {
         localStorage.setItem(key, value);
         return;
     }
@@ -31,7 +31,7 @@ function setStorage(key, value) {
 }
 exports.setStorage = setStorage;
 function removeStorage(key) {
-    if ("local" == (0, appinfo_js_1.getBaseStorage)()) {
+    if ("local" == (0, app_info_1.getBaseStorage)()) {
         localStorage.removeItem(key);
         return;
     }
@@ -56,7 +56,7 @@ function getAccessorToken() {
     if (json && json.authtoken) {
         return json.authtoken;
     }
-    let token = (0, appinfo_js_1.getApiToken)();
+    let token = (0, app_info_1.getApiToken)();
     if (token && token != "")
         return token;
     return "";
@@ -74,7 +74,7 @@ function sendMessageInterface(win) {
     let moderator = win ? "opener" : "parent";
     let info = getAccessorInfo();
     let options = getStorage("accessoptions");
-    let msg = { type: "storage", moderator: moderator, API_URL: (0, appinfo_js_1.getApiUrl)(), BASE_URL: (0, appinfo_js_1.getBaseUrl)(), CDN_URL: (0, appinfo_js_1.getCdnUrl)(), IMG_URL: (0, appinfo_js_1.getImgUrl)(), DEFAULT_LANGUAGE: (0, appinfo_js_1.getDefaultLanguage)(), API_TOKEN: (0, appinfo_js_1.getApiToken)(), accessorinfo: info, accessoptions: options };
+    let msg = { type: "storage", moderator: moderator, API_URL: (0, app_info_1.getApiUrl)(), BASE_URL: (0, app_info_1.getBaseUrl)(), CDN_URL: (0, app_info_1.getCdnUrl)(), IMG_URL: (0, app_info_1.getImgUrl)(), DEFAULT_LANGUAGE: (0, app_info_1.getDefaultLanguage)(), API_TOKEN: (0, app_info_1.getApiToken)(), accessorinfo: info, accessoptions: options };
     return sendMessageToFrame(msg, win);
 }
 exports.sendMessageInterface = sendMessageInterface;
@@ -140,26 +140,26 @@ function handleRequestMessage(data) {
     console.log("handleRequestMessage: data", data);
     if (data.type == "storage") {
         if (data.API_URL !== undefined)
-            (0, appinfo_js_1.setApiUrl)(data.API_URL);
+            (0, app_info_1.setApiUrl)(data.API_URL);
         if (data.BASE_URL !== undefined)
-            (0, appinfo_js_1.setBaseUrl)(data.BASE_URL);
+            (0, app_info_1.setBaseUrl)(data.BASE_URL);
         if (data.CDN_URL !== undefined)
-            (0, appinfo_js_1.setCdnUrl)(data.CDN_URL);
+            (0, app_info_1.setCdnUrl)(data.CDN_URL);
         if (data.IMG_URL !== undefined)
-            (0, appinfo_js_1.setImgUrl)(data.IMG_URL);
+            (0, app_info_1.setImgUrl)(data.IMG_URL);
         if (data.DEFAULT_LANGUAGE !== undefined)
-            (0, appinfo_js_1.setDefaultLanguage)(data.DEFAULT_LANGUAGE);
+            (0, app_info_1.setDefaultLanguage)(data.DEFAULT_LANGUAGE);
         if (data.API_TOKEN !== undefined)
-            (0, appinfo_js_1.setApiToken)(data.API_TOKEN);
+            (0, app_info_1.setApiToken)(data.API_TOKEN);
         if (data.accessoptions !== undefined)
             setStorage("accessoptions", data.accessoptions);
         if (data.accessorinfo) {
             saveAccessorInfo(data.accessorinfo);
         }
         console.info("handleRequestMessage: accessor info", data.accessorinfo);
-        console.info("handleRequestMessage: DEFAULT_LANGUAGE=" + (0, appinfo_js_1.getDefaultLanguage)(), ", BASE_STORAGE=" + (0, appinfo_js_1.getBaseUrl)(), ", DEFAULT_RAW_PARAMETERS=" + (0, appinfo_js_1.getDefaultRawParameters)());
-        console.info("handleRequestMessage: API_URL=" + (0, appinfo_js_1.getApiUrl)(), ", BASE_URL=" + (0, appinfo_js_1.getBaseUrl)(), ", CDN_URL=" + (0, appinfo_js_1.getCdnUrl)(), ", IMG_URL=" + (0, appinfo_js_1.getImgUrl)());
-        console.info("handleRequestMessage: API_TOKEN=" + (0, appinfo_js_1.getApiToken)());
+        console.info("handleRequestMessage: DEFAULT_LANGUAGE=" + (0, app_info_1.getDefaultLanguage)(), ", BASE_STORAGE=" + (0, app_info_1.getBaseUrl)(), ", DEFAULT_RAW_PARAMETERS=" + (0, app_info_1.getDefaultRawParameters)());
+        console.info("handleRequestMessage: API_URL=" + (0, app_info_1.getApiUrl)(), ", BASE_URL=" + (0, app_info_1.getBaseUrl)(), ", CDN_URL=" + (0, app_info_1.getCdnUrl)(), ", IMG_URL=" + (0, app_info_1.getImgUrl)());
+        console.info("handleRequestMessage: API_TOKEN=" + (0, app_info_1.getApiToken)());
     }
     if (messagingCallback)
         messagingCallback(data);
@@ -169,7 +169,7 @@ function setupDiffie(json) {
     console.log("setupDiffie", getAccessorToken());
     let info = json.body.info;
     if (info) {
-        const dh = new dh_js_1.DH();
+        const dh = new dh_1.DH();
         dh.prime = info.prime;
         dh.generator = info.generator;
         dh.otherPublicKey = info.publickey;
@@ -188,7 +188,7 @@ function getDH() {
     if (json && json.info) {
         let info = json.info;
         if (info.prime && info.generator && info.publickey && info.privatekey && info.sharedkey && info.otherpublickey) {
-            const dh = new dh_js_1.DH();
+            const dh = new dh_1.DH();
             dh.prime = info.prime;
             dh.generator = info.generator;
             dh.otherPublicKey = info.publickey;
