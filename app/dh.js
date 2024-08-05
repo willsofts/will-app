@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DH = void 0;
 const jquery_1 = __importDefault(require("jquery"));
 const app_info_1 = require("./app.info");
+const messenger_1 = require("./messenger");
 const crypto_js_1 = __importDefault(require("crypto-js"));
 const bigi_1 = __importDefault(require("bigi"));
 const getPrimes = function (min, max) {
@@ -83,18 +84,7 @@ class DH {
         this.requestPublicKey(this, callback, aurl);
     }
     getAccessorInfo() {
-        console.log("dh.js: BASE_STORAGE", (0, app_info_1.getBaseStorage)());
-        let info = undefined;
-        if ("local" == (0, app_info_1.getBaseStorage)()) {
-            info = localStorage.getItem("accessorinfo");
-        }
-        else {
-            info = sessionStorage.getItem("accessorinfo");
-        }
-        if (info && info != "") {
-            return JSON.parse(info);
-        }
-        return null;
+        return (0, messenger_1.getAccessorInfo)();
     }
     getAccessorToken() {
         let json = this.getAccessorInfo();
