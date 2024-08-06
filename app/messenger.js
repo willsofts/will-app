@@ -22,6 +22,8 @@ exports.setCurrentWindow = setCurrentWindow;
 function getCurrentWindow() { return currentWindow; }
 exports.getCurrentWindow = getCurrentWindow;
 function getStorage(key) {
+    if (secureLs)
+        return secureLs.get(key);
     if ("local" == (0, app_info_1.getBaseStorage)()) {
         return localStorage.getItem(key);
     }
@@ -29,6 +31,10 @@ function getStorage(key) {
 }
 exports.getStorage = getStorage;
 function setStorage(key, value) {
+    if (secureLs) {
+        secureLs.set(key, value);
+        return;
+    }
     if ("local" == (0, app_info_1.getBaseStorage)()) {
         localStorage.setItem(key, value);
         return;
@@ -37,6 +43,10 @@ function setStorage(key, value) {
 }
 exports.setStorage = setStorage;
 function removeStorage(key) {
+    if (secureLs) {
+        secureLs.remove(key);
+        return;
+    }
     if ("local" == (0, app_info_1.getBaseStorage)()) {
         localStorage.removeItem(key);
         return;
