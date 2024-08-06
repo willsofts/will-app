@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDH = exports.setupDiffie = exports.handleRequestMessage = exports.sendMessageToOpener = exports.sendMessageToParent = exports.requestAccessorInfo = exports.sendMessageToFrame = exports.sendMessageInterface = exports.removeAccessorInfo = exports.saveAccessorInfo = exports.getAccessorToken = exports.getAccessorInfo = exports.removeStorage = exports.setStorage = exports.getStorage = exports.getCurrentWindow = exports.setCurrentWindow = exports.setMessagingCallback = exports.getSecureEngine = void 0;
+exports.bindingParentMessaging = exports.bindingChildMessaging = exports.getDH = exports.setupDiffie = exports.handleRequestMessage = exports.sendMessageToOpener = exports.sendMessageToParent = exports.requestAccessorInfo = exports.sendMessageToFrame = exports.sendMessageInterface = exports.removeAccessorInfo = exports.saveAccessorInfo = exports.getAccessorToken = exports.getAccessorInfo = exports.removeStorage = exports.setStorage = exports.getStorage = exports.getCurrentWindow = exports.setCurrentWindow = exports.setMessagingCallback = exports.getSecureEngine = void 0;
 const app_info_1 = require("./app.info");
 const dh_1 = require("./dh");
 const secure_ls_1 = __importDefault(require("secure-ls"));
@@ -186,7 +186,7 @@ function handleRequestMessage(data) {
             saveAccessorInfo(data.accessorinfo);
         }
         console.info("handleRequestMessage: accessor info", data.accessorinfo);
-        console.info("handleRequestMessage: DEFAULT_LANGUAGE=" + (0, app_info_1.getDefaultLanguage)(), ", BASE_STORAGE=" + (0, app_info_1.getBaseUrl)(), ", DEFAULT_RAW_PARAMETERS=" + (0, app_info_1.getDefaultRawParameters)(), ", SECURE_STORAGE=" + (0, app_info_1.isSecureStorage)());
+        console.info("handleRequestMessage: DEFAULT_LANGUAGE=" + (0, app_info_1.getDefaultLanguage)(), ", BASE_STORAGE=" + (0, app_info_1.getBaseStorage)(), ", DEFAULT_RAW_PARAMETERS=" + (0, app_info_1.getDefaultRawParameters)(), ", SECURE_STORAGE=" + (0, app_info_1.isSecureStorage)());
         console.info("handleRequestMessage: API_URL=" + (0, app_info_1.getApiUrl)(), ", BASE_URL=" + (0, app_info_1.getBaseUrl)(), ", CDN_URL=" + (0, app_info_1.getCdnUrl)(), ", IMG_URL=" + (0, app_info_1.getImgUrl)());
         console.info("handleRequestMessage: API_TOKEN=" + (0, app_info_1.getApiToken)());
     }
@@ -231,23 +231,48 @@ function getDH() {
     return null;
 }
 exports.getDH = getDH;
-window.onmessage = function (e) {
-    console.log("window-messenger: onmessage:", e.data);
-    try {
-        let payload = e.data;
-        if (typeof payload === 'string') {
-            payload = JSON.parse(e.data);
+function bindingChildMessaging() {
+    window.onmessage = function (e) {
+        console.log("window-messenger: onmessage:", e.data);
+        try {
+            let payload = e.data;
+            if (typeof payload === 'string') {
+                payload = JSON.parse(e.data);
+            }
+            //in case of parent window, try to send accessor info
+            /*
+            if(payload.type=="accessorinfo") {
+                sendMessageInterface(getCurrentWindow());
+                return;
+            }*/
+            //in case of child window, try to handle request message
+            handleRequestMessage(payload);
         }
-        //in case of parent window, try to send accessor info
-        /*
-        if(payload.type=="accessorinfo") {
-            sendMessageInterface(getCurrentWindow());
-            return;
-        }*/
-        //in case of child window, try to handle request message
-        handleRequestMessage(payload);
-    }
-    catch (ex) {
-        console.error(ex);
-    }
-};
+        catch (ex) {
+            console.error(ex);
+        }
+    };
+}
+exports.bindingChildMessaging = bindingChildMessaging;
+function bindingParentMessaging() {
+    window.onmessage = function (e) {
+        console.log("window-main: onmessage:", e.data);
+        try {
+            let payload = e.data;
+            if (typeof payload === 'string') {
+                payload = JSON.parse(e.data);
+            }
+            //in case of parent window, try to send accessor info
+            if (payload.type == "accessorinfo") {
+                sendMessageInterface(getCurrentWindow());
+                return;
+            }
+            //in case of child window, try to handle request message
+            //handleRequestMessage(payload);
+        }
+        catch (ex) {
+            console.error(ex);
+        }
+    };
+}
+exports.bindingParentMessaging = bindingParentMessaging;
