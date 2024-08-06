@@ -71,13 +71,14 @@ exports.setDefaultLabels = setDefaultLabels;
 function setProgramLabels(labels) { program_labels = labels; }
 exports.setProgramLabels = setProgramLabels;
 function appInit(settings = { program_message, default_labels, program_labels, listen_messaging: 'child' }) {
-    setProgramMessage(settings.program_message);
-    setDefaultLabels(settings.default_labels);
-    setProgramLabels(settings.program_labels);
-    if (settings.listen_messaging == 'child') {
+    const setting = Object.assign({ listen_messaging: 'child' }, settings);
+    setProgramMessage(setting.program_message);
+    setDefaultLabels(setting.default_labels);
+    setProgramLabels(setting.program_labels);
+    if (setting.listen_messaging == 'child') {
         (0, messenger_1.bindingChildMessaging)();
     }
-    else if (settings.listen_messaging == 'parent') {
+    else if (setting.listen_messaging == 'parent') {
         (0, messenger_1.bindingParentMessaging)();
     }
 }
