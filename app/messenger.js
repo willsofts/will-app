@@ -3,14 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDH = exports.setupDiffie = exports.handleRequestMessage = exports.sendMessageToOpener = exports.sendMessageToParent = exports.requestAccessorInfo = exports.sendMessageToFrame = exports.sendMessageInterface = exports.removeAccessorInfo = exports.saveAccessorInfo = exports.getAccessorToken = exports.getAccessorInfo = exports.removeStorage = exports.setStorage = exports.getStorage = exports.getCurrentWindow = exports.setCurrentWindow = exports.setMessagingCallback = void 0;
+exports.getDH = exports.setupDiffie = exports.handleRequestMessage = exports.sendMessageToOpener = exports.sendMessageToParent = exports.requestAccessorInfo = exports.sendMessageToFrame = exports.sendMessageInterface = exports.removeAccessorInfo = exports.saveAccessorInfo = exports.getAccessorToken = exports.getAccessorInfo = exports.removeStorage = exports.setStorage = exports.getStorage = exports.getCurrentWindow = exports.setCurrentWindow = exports.setMessagingCallback = exports.getSecureEngine = void 0;
 const app_info_1 = require("./app.info");
 const dh_1 = require("./dh");
 const secure_ls_1 = __importDefault(require("secure-ls"));
-const secureLs = app_info_1.SECURE_STORAGE ? new secure_ls_1.default({ storage: "local" == (0, app_info_1.getBaseStorage)() ? localStorage : sessionStorage }) : null;
-console.info("secure storage:", secureLs);
 var messagingCallback;
 var currentWindow;
+var secureEngine;
+function getSecureEngine() {
+    if (!secureEngine) {
+        secureEngine = (0, app_info_1.isSecureStorage)() ? new secure_ls_1.default({ storage: "local" == (0, app_info_1.getBaseStorage)() ? localStorage : sessionStorage }) : null;
+    }
+    return secureEngine;
+}
+exports.getSecureEngine = getSecureEngine;
 function setMessagingCallback(callback) {
     messagingCallback = callback;
 }
@@ -22,6 +28,7 @@ exports.setCurrentWindow = setCurrentWindow;
 function getCurrentWindow() { return currentWindow; }
 exports.getCurrentWindow = getCurrentWindow;
 function getStorage(key) {
+    let secureLs = getSecureEngine();
     if (secureLs)
         return secureLs.get(key);
     if ("local" == (0, app_info_1.getBaseStorage)()) {
@@ -31,6 +38,7 @@ function getStorage(key) {
 }
 exports.getStorage = getStorage;
 function setStorage(key, value) {
+    let secureLs = getSecureEngine();
     if (secureLs) {
         secureLs.set(key, value);
         return;
@@ -43,6 +51,7 @@ function setStorage(key, value) {
 }
 exports.setStorage = setStorage;
 function removeStorage(key) {
+    let secureLs = getSecureEngine();
     if (secureLs) {
         secureLs.remove(key);
         return;
@@ -90,7 +99,7 @@ function sendMessageInterface(win) {
     let moderator = win ? "opener" : "parent";
     let info = getAccessorInfo();
     let options = getStorage("accessoptions");
-    let msg = { type: "storage", moderator: moderator, API_URL: (0, app_info_1.getApiUrl)(), BASE_URL: (0, app_info_1.getBaseUrl)(), CDN_URL: (0, app_info_1.getCdnUrl)(), IMG_URL: (0, app_info_1.getImgUrl)(), DEFAULT_LANGUAGE: (0, app_info_1.getDefaultLanguage)(), API_TOKEN: (0, app_info_1.getApiToken)(), accessorinfo: info, accessoptions: options };
+    let msg = { type: "storage", moderator: moderator, API_URL: (0, app_info_1.getApiUrl)(), BASE_URL: (0, app_info_1.getBaseUrl)(), CDN_URL: (0, app_info_1.getCdnUrl)(), IMG_URL: (0, app_info_1.getImgUrl)(), DEFAULT_LANGUAGE: (0, app_info_1.getDefaultLanguage)(), API_TOKEN: (0, app_info_1.getApiToken)(), BASE_STORAGE: (0, app_info_1.getBaseStorage)(), SECURE_STORAGE: (0, app_info_1.isSecureStorage)(), accessorinfo: info, accessoptions: options };
     return sendMessageToFrame(msg, win);
 }
 exports.sendMessageInterface = sendMessageInterface;
@@ -167,13 +176,17 @@ function handleRequestMessage(data) {
             (0, app_info_1.setDefaultLanguage)(data.DEFAULT_LANGUAGE);
         if (data.API_TOKEN !== undefined)
             (0, app_info_1.setApiToken)(data.API_TOKEN);
+        if (data.BASE_STORAGE !== undefined)
+            (0, app_info_1.setBaseStorage)(data.BASE_STORAGE);
+        if (data.SECURE_STORAGE !== undefined)
+            (0, app_info_1.setSecureStorage)(data.SECURE_STORAGE);
         if (data.accessoptions !== undefined)
             setStorage("accessoptions", data.accessoptions);
         if (data.accessorinfo) {
             saveAccessorInfo(data.accessorinfo);
         }
         console.info("handleRequestMessage: accessor info", data.accessorinfo);
-        console.info("handleRequestMessage: DEFAULT_LANGUAGE=" + (0, app_info_1.getDefaultLanguage)(), ", BASE_STORAGE=" + (0, app_info_1.getBaseUrl)(), ", DEFAULT_RAW_PARAMETERS=" + (0, app_info_1.getDefaultRawParameters)());
+        console.info("handleRequestMessage: DEFAULT_LANGUAGE=" + (0, app_info_1.getDefaultLanguage)(), ", BASE_STORAGE=" + (0, app_info_1.getBaseUrl)(), ", DEFAULT_RAW_PARAMETERS=" + (0, app_info_1.getDefaultRawParameters)(), ", SECURE_STORAGE=" + (0, app_info_1.isSecureStorage)());
         console.info("handleRequestMessage: API_URL=" + (0, app_info_1.getApiUrl)(), ", BASE_URL=" + (0, app_info_1.getBaseUrl)(), ", CDN_URL=" + (0, app_info_1.getCdnUrl)(), ", IMG_URL=" + (0, app_info_1.getImgUrl)());
         console.info("handleRequestMessage: API_TOKEN=" + (0, app_info_1.getApiToken)());
     }
