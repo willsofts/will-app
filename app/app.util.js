@@ -530,7 +530,7 @@ function serializeParameters(parameters, addonParameters, raw) {
     let token = (0, messenger_1.getAccessorToken)();
     let headers = { "authtoken": token, "data-type": cipherdata ? "json/cipher" : "", language: (0, app_info_1.getDefaultLanguage)() };
     //console.log("serialize: headers",JSON.stringify(headers));
-    return { cipherdata: cipherdata, jsondata: jsondata, headers: headers };
+    return { cipherdata: cipherdata, jsondata: JSON.stringify(jsondata), jsonobject: jsondata, headers: headers };
 }
 exports.serializeParameters = serializeParameters;
 function decryptCipherData(headers, data) {
