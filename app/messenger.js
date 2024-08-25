@@ -203,11 +203,17 @@ function setupDiffie(json) {
         dh.generator = info.generator;
         dh.otherPublicKey = info.publickey;
         dh.compute();
-        dh.updatePublicKey();
+        dh.updatePublicKey((success) => {
+            if (success) {
+                info.handshake = "C"; //confirm
+                saveAccessorInfo(json.body);
+            }
+        });
         info.privatekey = dh.privateKey;
         info.publickey = dh.publicKey;
         info.sharedkey = dh.sharedKey;
         info.otherpublickey = dh.otherPublicKey;
+        info.handshake = "";
         saveAccessorInfo(json.body);
     }
 }
@@ -216,6 +222,8 @@ function getDH() {
     let json = getAccessorInfo();
     if (json && json.info) {
         let info = json.info;
+        if (!info.handshake || info.handshake == "" || info.handshake == "F")
+            return null; //not confirm or fail
         if (info.prime && info.generator && info.publickey && info.privatekey && info.sharedkey && info.otherpublickey) {
             const dh = new dh_1.DH();
             dh.prime = info.prime;
