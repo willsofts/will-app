@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.decryptCipherData = exports.serializeParameters = exports.setupApplication = exports.startApplication = exports.confirmRevise = exports.confirmResend = exports.confirmExport = exports.confirmImport = exports.confirmRequest = exports.confirmReject = exports.confirmApprove = exports.confirmErase = exports.confirmReset = exports.confirmReceive = exports.confirmSaveAs = exports.confirmProcess = exports.confirmClear = exports.confirmUpdate = exports.confirmSend = exports.confirmRemove = exports.confirmCancel = exports.confirmSave = exports.confirmDelete = exports.confirmDialogBox = exports.confirmmsg = exports.alertmsg = exports.confirmDialog = exports.confirmbox = exports.alertDialog = exports.alertbox = exports.warningbox = exports.successbox = exports.detectErrorResponse = exports.parseErrorThrown = exports.submitFailure = exports.stopWaiting = exports.startWaiting = exports.openNewWindow = exports.submitWindow = exports.addWindow = exports.closeChildWindows = exports.getWindowByName = void 0;
+exports.createLinkStyle = exports.decryptCipherData = exports.serializeParameters = exports.setupApplication = exports.startApplication = exports.confirmRevise = exports.confirmResend = exports.confirmExport = exports.confirmImport = exports.confirmRequest = exports.confirmReject = exports.confirmApprove = exports.confirmErase = exports.confirmReset = exports.confirmReceive = exports.confirmSaveAs = exports.confirmProcess = exports.confirmClear = exports.confirmUpdate = exports.confirmSend = exports.confirmRemove = exports.confirmCancel = exports.confirmSave = exports.confirmDelete = exports.confirmDialogBox = exports.confirmmsg = exports.alertmsg = exports.confirmDialog = exports.confirmbox = exports.alertDialog = exports.alertbox = exports.warningbox = exports.successbox = exports.detectErrorResponse = exports.parseErrorThrown = exports.submitFailure = exports.stopWaiting = exports.startWaiting = exports.openNewWindow = exports.submitWindow = exports.addWindow = exports.closeChildWindows = exports.getWindowByName = void 0;
 const jquery_1 = __importDefault(require("jquery"));
 const bootbox_1 = __importDefault(require("bootbox"));
 const msg_util_1 = require("./msg.util");
@@ -557,3 +557,19 @@ function decryptCipherData(headers, data) {
     return data;
 }
 exports.decryptCipherData = decryptCipherData;
+function createLinkStyle(css_url) {
+    if (css_url && css_url.trim().length > 0) {
+        console.log("try to create link style:", css_url);
+        try {
+            let style = document.createElement('link');
+            style.type = "text/css";
+            style.rel = "stylesheet";
+            style.href = css_url;
+            document.head.appendChild(style);
+        }
+        catch (ex) {
+            console.error(ex);
+        }
+    }
+}
+exports.createLinkStyle = createLinkStyle;

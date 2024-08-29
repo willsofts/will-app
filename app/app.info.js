@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.DEFAULT_CONTENT_TYPE = void 0;
+exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.setBaseCss = exports.getBaseCss = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.DEFAULT_CONTENT_TYPE = void 0;
 const messenger_1 = require("./messenger");
 var DEFAULT_LANGUAGE = process.env.VUE_APP_DEFAULT_LANGUAGE;
 var API_URL = process.env.VUE_APP_API_URL;
@@ -11,9 +11,10 @@ var BASE_STORAGE = process.env.VUE_APP_BASE_STORAGE;
 var API_TOKEN = process.env.VUE_APP_API_TOKEN;
 var DEFAULT_RAW_PARAMETERS = process.env.VUE_APP_DEFAULT_RAW_PARAMETERS == "true";
 var SECURE_STORAGE = process.env.VUE_APP_SECURE_STORAGE == "true";
+var BASE_CSS = process.env.VUE_APP_BASE_CSS;
 exports.DEFAULT_CONTENT_TYPE = "application/json; charset=UTF-8";
 console.info("DEFAULT_LANGUAGE=" + DEFAULT_LANGUAGE, ", BASE_STORAGE=" + BASE_STORAGE, ", DEFAULT_RAW_PARAMETERS=" + DEFAULT_RAW_PARAMETERS, ", SECURE_STORAGE=" + SECURE_STORAGE);
-console.info("API_URL=" + API_URL, ", BASE_URL=" + BASE_URL, ", CDN_URL=" + CDN_URL, ", IMG_URL=" + IMG_URL);
+console.info("API_URL=" + API_URL, ", BASE_URL=" + BASE_URL, ", CDN_URL=" + CDN_URL, ", IMG_URL=" + IMG_URL + ", BASE_CSS=" + BASE_CSS);
 console.info("API_TOKEN=" + API_TOKEN);
 function getDefaultLanguage() { return DEFAULT_LANGUAGE; }
 exports.getDefaultLanguage = getDefaultLanguage;
@@ -55,6 +56,10 @@ function setSecureStorage(value) { SECURE_STORAGE = value; }
 exports.setSecureStorage = setSecureStorage;
 function isSecureStorage() { return SECURE_STORAGE; }
 exports.isSecureStorage = isSecureStorage;
+function getBaseCss() { return BASE_CSS; }
+exports.getBaseCss = getBaseCss;
+function setBaseCss(value) { BASE_CSS = value; }
+exports.setBaseCss = setBaseCss;
 var default_labels = [];
 var program_labels = [];
 var program_message = [];
