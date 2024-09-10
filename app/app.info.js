@@ -1,12 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.setBaseCss = exports.getBaseCss = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.DEFAULT_CONTENT_TYPE = void 0;
+exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.setBaseCss = exports.getBaseCss = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setChatUrl = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getChatUrl = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.DEFAULT_CONTENT_TYPE = void 0;
 const messenger_1 = require("./messenger");
 var DEFAULT_LANGUAGE = process.env.VUE_APP_DEFAULT_LANGUAGE;
 var API_URL = process.env.VUE_APP_API_URL;
 var BASE_URL = process.env.VUE_APP_BASE_URL;
 var CDN_URL = process.env.VUE_APP_CDN_URL;
 var IMG_URL = process.env.VUE_APP_IMG_URL;
+var CHAT_URL = process.env.VUE_APP_CHAT_URL;
 var BASE_STORAGE = process.env.VUE_APP_BASE_STORAGE;
 var API_TOKEN = process.env.VUE_APP_API_TOKEN;
 var DEFAULT_RAW_PARAMETERS = process.env.VUE_APP_DEFAULT_RAW_PARAMETERS == "true";
@@ -14,7 +15,7 @@ var SECURE_STORAGE = process.env.VUE_APP_SECURE_STORAGE == "true";
 var BASE_CSS = process.env.VUE_APP_BASE_CSS;
 exports.DEFAULT_CONTENT_TYPE = "application/json; charset=UTF-8";
 console.info("DEFAULT_LANGUAGE=" + DEFAULT_LANGUAGE, ", BASE_STORAGE=" + BASE_STORAGE, ", DEFAULT_RAW_PARAMETERS=" + DEFAULT_RAW_PARAMETERS, ", SECURE_STORAGE=" + SECURE_STORAGE);
-console.info("API_URL=" + API_URL, ", BASE_URL=" + BASE_URL, ", CDN_URL=" + CDN_URL, ", IMG_URL=" + IMG_URL + ", BASE_CSS=" + BASE_CSS);
+console.info("API_URL=" + API_URL, ", BASE_URL=" + BASE_URL, ", CDN_URL=" + CDN_URL, ", IMG_URL=" + IMG_URL + ", BASE_CSS=" + BASE_CSS + ", CHAT_URL=" + CHAT_URL);
 console.info("API_TOKEN=" + API_TOKEN);
 function getDefaultLanguage() { return DEFAULT_LANGUAGE; }
 exports.getDefaultLanguage = getDefaultLanguage;
@@ -34,6 +35,8 @@ function getCdnUrl() { return CDN_URL; }
 exports.getCdnUrl = getCdnUrl;
 function getImgUrl() { return IMG_URL; }
 exports.getImgUrl = getImgUrl;
+function getChatUrl() { return CHAT_URL; }
+exports.getChatUrl = getChatUrl;
 function getBaseStorage() { return BASE_STORAGE; }
 exports.getBaseStorage = getBaseStorage;
 function getDefaultRawParameters() { return DEFAULT_RAW_PARAMETERS; }
@@ -48,6 +51,8 @@ function setCdnUrl(value) { CDN_URL = value; }
 exports.setCdnUrl = setCdnUrl;
 function setImgUrl(value) { IMG_URL = value; }
 exports.setImgUrl = setImgUrl;
+function setChatUrl(value) { CHAT_URL = value; }
+exports.setChatUrl = setChatUrl;
 function setBaseStorage(value) { BASE_STORAGE = value; }
 exports.setBaseStorage = setBaseStorage;
 function setDefaultRawParameters(value) { DEFAULT_RAW_PARAMETERS = value; }

@@ -100,7 +100,7 @@ function sendMessageInterface(win) {
     let moderator = win ? "opener" : "parent";
     let info = getAccessorInfo();
     let options = getStorage("accessoptions");
-    let msg = { type: "storage", moderator: moderator, API_URL: (0, app_info_1.getApiUrl)(), BASE_URL: (0, app_info_1.getBaseUrl)(), CDN_URL: (0, app_info_1.getCdnUrl)(), IMG_URL: (0, app_info_1.getImgUrl)(), DEFAULT_LANGUAGE: (0, app_info_1.getDefaultLanguage)(), API_TOKEN: (0, app_info_1.getApiToken)(), BASE_STORAGE: (0, app_info_1.getBaseStorage)(), SECURE_STORAGE: (0, app_info_1.isSecureStorage)(), BASE_CSS: (0, app_info_1.getBaseCss)(), accessorinfo: info, accessoptions: options };
+    let msg = { type: "storage", moderator: moderator, API_URL: (0, app_info_1.getApiUrl)(), BASE_URL: (0, app_info_1.getBaseUrl)(), CDN_URL: (0, app_info_1.getCdnUrl)(), IMG_URL: (0, app_info_1.getImgUrl)(), DEFAULT_LANGUAGE: (0, app_info_1.getDefaultLanguage)(), API_TOKEN: (0, app_info_1.getApiToken)(), BASE_STORAGE: (0, app_info_1.getBaseStorage)(), SECURE_STORAGE: (0, app_info_1.isSecureStorage)(), BASE_CSS: (0, app_info_1.getBaseCss)(), CHAT_URL: (0, app_info_1.getChatUrl)(), accessorinfo: info, accessoptions: options };
     return sendMessageToFrame(msg, win);
 }
 exports.sendMessageInterface = sendMessageInterface;
@@ -183,6 +183,8 @@ function handleRequestMessage(data) {
             (0, app_info_1.setSecureStorage)(data.SECURE_STORAGE);
         if (data.BASE_CSS !== undefined)
             (0, app_info_1.setBaseCss)(data.BASE_CSS);
+        if (data.CHAT_URL !== undefined)
+            (0, app_info_1.setChatUrl)(data.CHAT_URL);
         if (data.accessoptions !== undefined)
             setStorage("accessoptions", data.accessoptions);
         if (data.accessorinfo) {
@@ -190,7 +192,7 @@ function handleRequestMessage(data) {
         }
         console.info("handleRequestMessage: accessor info", data.accessorinfo);
         console.info("handleRequestMessage: DEFAULT_LANGUAGE=" + (0, app_info_1.getDefaultLanguage)(), ", BASE_STORAGE=" + (0, app_info_1.getBaseStorage)(), ", DEFAULT_RAW_PARAMETERS=" + (0, app_info_1.getDefaultRawParameters)(), ", SECURE_STORAGE=" + (0, app_info_1.isSecureStorage)());
-        console.info("handleRequestMessage: API_URL=" + (0, app_info_1.getApiUrl)(), ", BASE_URL=" + (0, app_info_1.getBaseUrl)(), ", CDN_URL=" + (0, app_info_1.getCdnUrl)(), ", IMG_URL=" + (0, app_info_1.getImgUrl)() + ", BASE_CSS=" + (0, app_info_1.getBaseCss)());
+        console.info("handleRequestMessage: API_URL=" + (0, app_info_1.getApiUrl)(), ", BASE_URL=" + (0, app_info_1.getBaseUrl)(), ", CDN_URL=" + (0, app_info_1.getCdnUrl)(), ", IMG_URL=" + (0, app_info_1.getImgUrl)() + ", BASE_CSS=" + (0, app_info_1.getBaseCss)() + ", CHAT_URL=" + (0, app_info_1.getChatUrl)());
         console.info("handleRequestMessage: API_TOKEN=" + (0, app_info_1.getApiToken)());
         (0, app_util_1.createLinkStyle)((0, app_info_1.getBaseCss)());
     }
