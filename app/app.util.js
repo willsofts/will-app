@@ -199,10 +199,12 @@ function parseErrorThrown(xhr, status, errorThrown) {
             errorThrown = xhr.responseText; //400=Bad Request,401=Unauthen
         if (xhr.responseText) {
             let json = JSON.parse(xhr.responseText);
+            if (json.message)
+                errorThrown = json.message; //support java api
             if (json.text)
-                errorThrown = json.text;
+                errorThrown = json.text; //support original template
             if (json.head.errordesc)
-                errorThrown = json.head.errordesc;
+                errorThrown = json.head.errordesc; //support api
         }
     }
     catch (ex) {
