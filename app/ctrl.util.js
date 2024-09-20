@@ -59,6 +59,7 @@ function openCalendar(src) {
             }
         });
         picker.datepicker("show");
+        (0, jquery_1.default)(document).off('focusin');
         return;
     }
     catch (ex) {
@@ -218,11 +219,15 @@ function setCaretPosition(ctrl, iCaretPos) {
 }
 exports.setCaretPosition = setCaretPosition;
 function parseNumber(avalue) {
+    if (!avalue)
+        return 0;
     return Number(removeComma(avalue));
 }
 exports.parseNumber = parseNumber;
 function removeComma(avalue) {
-    let result = avalue;
+    if (!avalue)
+        return avalue;
+    let result = avalue + "";
     while (result.indexOf(",") > -1) {
         result = removeDelimiter(result, ",");
     }
