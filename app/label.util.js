@@ -25,6 +25,8 @@ function getLabelItem(name, lang, label_category) {
     if (!lang || lang.trim().length == 0)
         lang = "EN";
     let lang_item = label_category.find((item) => { return item.language == lang; });
+    if (!lang_item)
+        lang_item = label_category.find((item) => { return item.language == "EN"; });
     if (lang_item) {
         return lang_item.label.find((item) => { return item.name == name; });
     }
@@ -35,6 +37,8 @@ function getLabelObject(lang = (0, app_info_1.getDefaultLanguage)(), label_categ
     if (!lang || lang.trim().length == 0)
         lang = "EN";
     let lang_item = label_category.find((item) => { return item.language == lang; });
+    if (!lang_item)
+        lang_item = label_category.find((item) => { return item.language == "EN"; });
     if (lang_item) {
         return lang_item.label;
     }

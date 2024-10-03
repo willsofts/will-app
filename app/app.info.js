@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.setBaseCss = exports.getBaseCss = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setChatUrl = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getChatUrl = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.DEFAULT_CONTENT_TYPE = void 0;
+exports.getMultiLanguagesModel = exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.setBaseCss = exports.getBaseCss = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setChatUrl = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getChatUrl = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.setMultiLanguages = exports.getMultiLanguages = exports.registerNotification = exports.DEFAULT_CONTENT_TYPE = void 0;
 const messenger_1 = require("./messenger");
 var DEFAULT_LANGUAGE = process.env.VUE_APP_DEFAULT_LANGUAGE;
 var API_URL = process.env.VUE_APP_API_URL;
@@ -13,10 +13,30 @@ var API_TOKEN = process.env.VUE_APP_API_TOKEN;
 var DEFAULT_RAW_PARAMETERS = process.env.VUE_APP_DEFAULT_RAW_PARAMETERS == "true";
 var SECURE_STORAGE = process.env.VUE_APP_SECURE_STORAGE == "true";
 var BASE_CSS = process.env.VUE_APP_BASE_CSS;
+var APP_MULTI_LANGUAGES = process.env.VUE_APP_MULTI_LANGUAGES;
+var MULTI_LANGUAGES = ["EN", "TH"];
+if (APP_MULTI_LANGUAGES && APP_MULTI_LANGUAGES.trim().length > 0) {
+    let multilangs = JSON.parse(APP_MULTI_LANGUAGES);
+    if (Array.isArray(multilangs))
+        MULTI_LANGUAGES = multilangs;
+}
 exports.DEFAULT_CONTENT_TYPE = "application/json; charset=UTF-8";
 console.info("DEFAULT_LANGUAGE=" + DEFAULT_LANGUAGE, ", BASE_STORAGE=" + BASE_STORAGE, ", DEFAULT_RAW_PARAMETERS=" + DEFAULT_RAW_PARAMETERS, ", SECURE_STORAGE=" + SECURE_STORAGE);
-console.info("API_URL=" + API_URL, ", BASE_URL=" + BASE_URL, ", CDN_URL=" + CDN_URL, ", IMG_URL=" + IMG_URL + ", BASE_CSS=" + BASE_CSS + ", CHAT_URL=" + CHAT_URL);
+console.info("API_URL=" + API_URL, ", BASE_URL=" + BASE_URL, ", CDN_URL=" + CDN_URL, ", IMG_URL=" + IMG_URL + ", BASE_CSS=" + BASE_CSS + ", CHAT_URL=" + CHAT_URL + ", MULTI_LANGUAGES=" + MULTI_LANGUAGES);
 console.info("API_TOKEN=" + API_TOKEN);
+var notifyCallback;
+function registerNotification(callback) { notifyCallback = callback; }
+exports.registerNotification = registerNotification;
+function getMultiLanguages() { return MULTI_LANGUAGES; }
+exports.getMultiLanguages = getMultiLanguages;
+function setMultiLanguages(values) {
+    console.info("set MULTI_LANGUAGES", values);
+    if (values)
+        MULTI_LANGUAGES = values;
+    if (notifyCallback)
+        notifyCallback("multi-languages", MULTI_LANGUAGES);
+}
+exports.setMultiLanguages = setMultiLanguages;
 function getDefaultLanguage() { return DEFAULT_LANGUAGE; }
 exports.getDefaultLanguage = getDefaultLanguage;
 function setDefaultLanguage(language) {
@@ -93,3 +113,10 @@ function appInit(settings = { program_message, default_labels, program_labels, l
     }
 }
 exports.appInit = appInit;
+function getMultiLanguagesModel(datas) {
+    let multilangs = datas || getMultiLanguages();
+    if (!multilangs)
+        multilangs = ["EN", "TH"];
+    return multilangs.map((item) => { return { lang: item, label: item + "_lang" }; });
+}
+exports.getMultiLanguagesModel = getMultiLanguagesModel;
