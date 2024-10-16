@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createLinkStyle = exports.decryptCipherData = exports.serializeParameters = exports.setupApplication = exports.startApplication = exports.confirmRevise = exports.confirmResend = exports.confirmExport = exports.confirmImport = exports.confirmRequest = exports.confirmReject = exports.confirmApprove = exports.confirmErase = exports.confirmReset = exports.confirmReceive = exports.confirmSaveAs = exports.confirmProcess = exports.confirmClear = exports.confirmUpdate = exports.confirmSend = exports.confirmRemove = exports.confirmCancel = exports.confirmSave = exports.confirmDelete = exports.confirmDialogBox = exports.confirmmsg = exports.alertmsg = exports.confirmDialog = exports.confirmbox = exports.alertDialog = exports.alertbox = exports.warningbox = exports.successbox = exports.detectErrorResponse = exports.parseErrorThrown = exports.submitFailure = exports.stopWaiting = exports.startWaiting = exports.openNewWindow = exports.submitWindow = exports.addWindow = exports.closeChildWindows = exports.getWindowByName = void 0;
+exports.disableControls = exports.createLinkStyle = exports.decryptCipherData = exports.serializeParameters = exports.setupApplication = exports.startApplication = exports.confirmRevise = exports.confirmResend = exports.confirmExport = exports.confirmImport = exports.confirmRequest = exports.confirmReject = exports.confirmApprove = exports.confirmErase = exports.confirmReset = exports.confirmReceive = exports.confirmSaveAs = exports.confirmProcess = exports.confirmClear = exports.confirmUpdate = exports.confirmSend = exports.confirmRemove = exports.confirmCancel = exports.confirmSave = exports.confirmDelete = exports.confirmDialogBox = exports.confirmmsg = exports.alertmsg = exports.confirmDialog = exports.confirmbox = exports.alertDialog = exports.alertbox = exports.warningbox = exports.successbox = exports.detectErrorResponse = exports.parseErrorThrown = exports.submitFailure = exports.stopWaiting = exports.startWaiting = exports.openNewWindow = exports.submitWindow = exports.addWindow = exports.closeChildWindows = exports.getWindowByName = void 0;
 const jquery_1 = __importDefault(require("jquery"));
 const bootbox_1 = __importDefault(require("bootbox"));
 const msg_util_1 = require("./msg.util");
@@ -575,3 +575,13 @@ function createLinkStyle(css_url) {
     }
 }
 exports.createLinkStyle = createLinkStyle;
+function disableControls() {
+    (0, jquery_1.default)(arguments).each(function (index, element) {
+        let $src = (0, jquery_1.default)(element);
+        $src.attr("disabled", "true");
+        setTimeout(function () {
+            $src.removeAttr("disabled");
+        }, 1000);
+    });
+}
+exports.disableControls = disableControls;
