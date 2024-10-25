@@ -163,8 +163,8 @@ function sendMessageToOpener(data) {
 }
 exports.sendMessageToOpener = sendMessageToOpener;
 function handleRequestMessage(data) {
-    console.log("handleRequestMessage: data", data);
     if (data.type == "storage") {
+        console.log("handleRequestMessage: data", data);
         if (data.API_URL !== undefined)
             (0, app_info_1.setApiUrl)(data.API_URL);
         if (data.BASE_URL !== undefined)
@@ -249,7 +249,7 @@ function getDH() {
 exports.getDH = getDH;
 function bindingChildMessaging() {
     window.onmessage = function (e) {
-        console.log("window-messenger: onmessage:", e.data);
+        //console.log("window-messenger: onmessage:",e.data);
         try {
             let payload = e.data;
             if (typeof payload === 'string') {
@@ -272,13 +272,13 @@ function bindingChildMessaging() {
 exports.bindingChildMessaging = bindingChildMessaging;
 function bindingParentMessaging() {
     window.onmessage = function (e) {
-        console.log("window-main: onmessage:", e.data);
+        //console.log("window-main: onmessage:",e.data);
         try {
             let payload = e.data;
             if (typeof payload === 'string') {
                 payload = JSON.parse(e.data);
             }
-            //in case of parent window, try to send accessor info
+            //in case of parent window, try to send accessor info            
             if (payload.type == "accessorinfo") {
                 sendMessageInterface(getCurrentWindow());
                 return;

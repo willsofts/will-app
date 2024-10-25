@@ -1,89 +1,91 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMultiLanguagesModel = exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.setBaseCss = exports.getBaseCss = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setChatUrl = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getChatUrl = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.setMultiLanguages = exports.getMultiLanguages = exports.registerNotification = exports.DEFAULT_CONTENT_TYPE = void 0;
+exports.getMultiLanguagesModel = exports.appInit = exports.setProgramLabels = exports.setDefaultLabels = exports.setProgramMessage = exports.getProgramLabels = exports.getDefaultLabels = exports.getProgramMessage = exports.setBaseCss = exports.getBaseCss = exports.isSecureStorage = exports.setSecureStorage = exports.setDefaultRawParameters = exports.setBaseStorage = exports.setChatUrl = exports.setImgUrl = exports.setCdnUrl = exports.setBaseUrl = exports.setApiUrl = exports.setApiToken = exports.getDefaultRawParameters = exports.getBaseStorage = exports.getChatUrl = exports.getImgUrl = exports.getCdnUrl = exports.getBaseUrl = exports.getApiUrl = exports.getApiToken = exports.setDefaultLanguage = exports.getDefaultLanguage = exports.setMultiLanguages = exports.getMultiLanguages = exports.registerNotification = exports.getAppInfo = exports.DEFAULT_CONTENT_TYPE = void 0;
 const messenger_1 = require("./messenger");
-var DEFAULT_LANGUAGE = process.env.VUE_APP_DEFAULT_LANGUAGE;
-var API_URL = process.env.VUE_APP_API_URL;
-var BASE_URL = process.env.VUE_APP_BASE_URL;
-var CDN_URL = process.env.VUE_APP_CDN_URL;
-var IMG_URL = process.env.VUE_APP_IMG_URL;
-var CHAT_URL = process.env.VUE_APP_CHAT_URL;
-var BASE_STORAGE = process.env.VUE_APP_BASE_STORAGE;
-var API_TOKEN = process.env.VUE_APP_API_TOKEN;
-var DEFAULT_RAW_PARAMETERS = process.env.VUE_APP_DEFAULT_RAW_PARAMETERS == "true";
-var SECURE_STORAGE = process.env.VUE_APP_SECURE_STORAGE == "true";
-var BASE_CSS = process.env.VUE_APP_BASE_CSS;
+const appInfo = {
+    DEFAULT_LANGUAGE: process.env.VUE_APP_DEFAULT_LANGUAGE,
+    API_URL: process.env.VUE_APP_API_URL,
+    BASE_URL: process.env.VUE_APP_BASE_URL,
+    CDN_URL: process.env.VUE_APP_CDN_URL,
+    IMG_URL: process.env.VUE_APP_IMG_URL,
+    CHAT_URL: process.env.VUE_APP_CHAT_URL,
+    BASE_STORAGE: process.env.VUE_APP_BASE_STORAGE,
+    API_TOKEN: process.env.VUE_APP_API_TOKEN,
+    DEFAULT_RAW_PARAMETERS: process.env.VUE_APP_DEFAULT_RAW_PARAMETERS == "true",
+    SECURE_STORAGE: process.env.VUE_APP_SECURE_STORAGE == "true",
+    BASE_CSS: process.env.VUE_APP_BASE_CSS,
+    MULTI_LANGUAGES: ["EN", "TH"],
+};
 var APP_MULTI_LANGUAGES = process.env.VUE_APP_MULTI_LANGUAGES;
-var MULTI_LANGUAGES = ["EN", "TH"];
 if (APP_MULTI_LANGUAGES && APP_MULTI_LANGUAGES.trim().length > 0) {
     let multilangs = JSON.parse(APP_MULTI_LANGUAGES);
     if (Array.isArray(multilangs))
-        MULTI_LANGUAGES = multilangs;
+        appInfo.MULTI_LANGUAGES = multilangs;
 }
 exports.DEFAULT_CONTENT_TYPE = "application/json; charset=UTF-8";
-console.info("DEFAULT_LANGUAGE=" + DEFAULT_LANGUAGE, ", BASE_STORAGE=" + BASE_STORAGE, ", DEFAULT_RAW_PARAMETERS=" + DEFAULT_RAW_PARAMETERS, ", SECURE_STORAGE=" + SECURE_STORAGE);
-console.info("API_URL=" + API_URL, ", BASE_URL=" + BASE_URL, ", CDN_URL=" + CDN_URL, ", IMG_URL=" + IMG_URL + ", BASE_CSS=" + BASE_CSS + ", CHAT_URL=" + CHAT_URL + ", MULTI_LANGUAGES=" + MULTI_LANGUAGES);
-console.info("API_TOKEN=" + API_TOKEN);
+console.log("AppInfo", appInfo);
 var notifyCallback;
+function getAppInfo() { return appInfo; }
+exports.getAppInfo = getAppInfo;
 function registerNotification(callback) { notifyCallback = callback; }
 exports.registerNotification = registerNotification;
-function getMultiLanguages() { return MULTI_LANGUAGES; }
+function getMultiLanguages() { return appInfo.MULTI_LANGUAGES; }
 exports.getMultiLanguages = getMultiLanguages;
 function setMultiLanguages(values) {
     console.info("set MULTI_LANGUAGES", values);
     if (values)
-        MULTI_LANGUAGES = values;
+        appInfo.MULTI_LANGUAGES = values;
     if (notifyCallback)
-        notifyCallback("multi-languages", MULTI_LANGUAGES);
+        notifyCallback("multi-languages", appInfo.MULTI_LANGUAGES);
 }
 exports.setMultiLanguages = setMultiLanguages;
-function getDefaultLanguage() { return DEFAULT_LANGUAGE; }
+function getDefaultLanguage() { return appInfo.DEFAULT_LANGUAGE; }
 exports.getDefaultLanguage = getDefaultLanguage;
 function setDefaultLanguage(language) {
     console.log("set default_language=" + language);
     if (language && language.trim().length > 0)
-        DEFAULT_LANGUAGE = language;
+        appInfo.DEFAULT_LANGUAGE = language;
 }
 exports.setDefaultLanguage = setDefaultLanguage;
-function getApiToken() { return API_TOKEN; }
+function getApiToken() { return appInfo.API_TOKEN; }
 exports.getApiToken = getApiToken;
-function getApiUrl() { return API_URL; }
+function getApiUrl() { return appInfo.API_URL; }
 exports.getApiUrl = getApiUrl;
-function getBaseUrl() { return BASE_URL; }
+function getBaseUrl() { return appInfo.BASE_URL; }
 exports.getBaseUrl = getBaseUrl;
-function getCdnUrl() { return CDN_URL; }
+function getCdnUrl() { return appInfo.CDN_URL; }
 exports.getCdnUrl = getCdnUrl;
-function getImgUrl() { return IMG_URL; }
+function getImgUrl() { return appInfo.IMG_URL; }
 exports.getImgUrl = getImgUrl;
-function getChatUrl() { return CHAT_URL; }
+function getChatUrl() { return appInfo.CHAT_URL; }
 exports.getChatUrl = getChatUrl;
-function getBaseStorage() { return BASE_STORAGE; }
+function getBaseStorage() { return appInfo.BASE_STORAGE; }
 exports.getBaseStorage = getBaseStorage;
-function getDefaultRawParameters() { return DEFAULT_RAW_PARAMETERS; }
+function getDefaultRawParameters() { return appInfo.DEFAULT_RAW_PARAMETERS; }
 exports.getDefaultRawParameters = getDefaultRawParameters;
-function setApiToken(value) { API_TOKEN = value; }
+function setApiToken(value) { appInfo.API_TOKEN = value; }
 exports.setApiToken = setApiToken;
-function setApiUrl(value) { API_URL = value; }
+function setApiUrl(value) { appInfo.API_URL = value; }
 exports.setApiUrl = setApiUrl;
-function setBaseUrl(value) { BASE_URL = value; }
+function setBaseUrl(value) { appInfo.BASE_URL = value; }
 exports.setBaseUrl = setBaseUrl;
-function setCdnUrl(value) { CDN_URL = value; }
+function setCdnUrl(value) { appInfo.CDN_URL = value; }
 exports.setCdnUrl = setCdnUrl;
-function setImgUrl(value) { IMG_URL = value; }
+function setImgUrl(value) { appInfo.IMG_URL = value; }
 exports.setImgUrl = setImgUrl;
-function setChatUrl(value) { CHAT_URL = value; }
+function setChatUrl(value) { appInfo.CHAT_URL = value; }
 exports.setChatUrl = setChatUrl;
-function setBaseStorage(value) { BASE_STORAGE = value; }
+function setBaseStorage(value) { appInfo.BASE_STORAGE = value; }
 exports.setBaseStorage = setBaseStorage;
-function setDefaultRawParameters(value) { DEFAULT_RAW_PARAMETERS = value; }
+function setDefaultRawParameters(value) { appInfo.DEFAULT_RAW_PARAMETERS = value; }
 exports.setDefaultRawParameters = setDefaultRawParameters;
-function setSecureStorage(value) { SECURE_STORAGE = value; }
+function setSecureStorage(value) { appInfo.SECURE_STORAGE = value; }
 exports.setSecureStorage = setSecureStorage;
-function isSecureStorage() { return SECURE_STORAGE; }
+function isSecureStorage() { return appInfo.SECURE_STORAGE; }
 exports.isSecureStorage = isSecureStorage;
-function getBaseCss() { return BASE_CSS; }
+function getBaseCss() { return appInfo.BASE_CSS; }
 exports.getBaseCss = getBaseCss;
-function setBaseCss(value) { BASE_CSS = value; }
+function setBaseCss(value) { appInfo.BASE_CSS = value; }
 exports.setBaseCss = setBaseCss;
 var default_labels = [];
 var program_labels = [];
