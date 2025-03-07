@@ -490,14 +490,16 @@ function startApplication(pid, callback) {
         }
     }).on("unload", function () { closeChildWindows(); });
     //disable bootstrap modal auto close when click outside and ESC key
-    try {
-        //bootstrap v4
-        let modal = jquery_1.default.fn.modal;
-        modal.Constructor.Default.backdrop = "static";
-        modal.Constructor.Default.keyboard = false;
-    }
-    catch (ex) {
-        console.error(ex);
+    let modal = jquery_1.default.fn.modal;
+    if (modal) {
+        try {
+            //bootstrap v4
+            modal.Constructor.Default.backdrop = "static";
+            modal.Constructor.Default.keyboard = false;
+        }
+        catch (ex) {
+            console.error(ex);
+        }
     }
     if (callback)
         setupApplication(callback);
