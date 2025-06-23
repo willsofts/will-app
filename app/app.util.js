@@ -271,9 +271,9 @@ function alertDialog(msg, callbackfn, title = "Alert", icon = "fa fa-bell-o") {
         let fs_okbtn = (0, msg_util_1.getMessageCode)("fsokbtn");
         if (!fs_okbtn || (fs_okbtn == "" || fs_okbtn == "fsokbtn"))
             fs_okbtn = "OK";
-        let box = bootbox_1.default;
+        let box = window.bootbox;
         if (!box)
-            box = window.jQuery.bootbox;
+            box = bootbox_1.default;
         box.alert({
             title: "<em class='" + icon + "'></em>&nbsp;<label>" + title + "</label>",
             message: msg,
@@ -326,9 +326,9 @@ function confirmDialog(msg, okCallback, cancelCallback, title = "Confirmation", 
         let fs_cancelbtn = (0, msg_util_1.getMessageCode)("fscancelbtn");
         if (!fs_cancelbtn || (fs_cancelbtn == "" || fs_cancelbtn == "fscancelbtn"))
             fs_cancelbtn = "Cancel";
-        let box = bootbox_1.default;
+        let box = window.bootbox;
         if (!box)
-            box = window.bootbox;
+            box = bootbox_1.default;
         box.confirm({
             title: "<em class='" + icon + "'></em>&nbsp;<label>" + title + "</label>",
             message: msg,
