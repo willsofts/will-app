@@ -1,215 +1,9 @@
-"use strict";
-var __create = Object.create;
-var __defProp = Object.defineProperty;
-var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
-var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
-};
-var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
-    for (let key of __getOwnPropNames(from))
-      if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
-  }
-  return to;
-};
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-
-// src/index.ts
-var index_exports = {};
-__export(index_exports, {
-  ALPHABETS: () => ALPHABETS,
-  DEFAULT_CONTENT_TYPE: () => DEFAULT_CONTENT_TYPE,
-  DEFAULT_PAGE_SETTINGS: () => DEFAULT_PAGE_SETTINGS,
-  DEFAULT_PERMITS: () => DEFAULT_PERMITS,
-  DH: () => DH,
-  KnMask: () => KnMask,
-  NUMERICS: () => NUMERICS,
-  Paging: () => Paging,
-  Permission: () => Permission,
-  Utilities: () => Utilities,
-  addWindow: () => addWindow,
-  alertDialog: () => alertDialog,
-  alertbox: () => alertbox,
-  alertmsg: () => alertmsg,
-  appInit: () => appInit,
-  assignAppConfig: () => assignAppConfig,
-  bindingChildMessaging: () => bindingChildMessaging,
-  bindingParentMessaging: () => bindingParentMessaging,
-  checkInputKey: () => checkInputKey,
-  checkInputNumberOnly: () => checkInputNumberOnly,
-  checkNumberOnly: () => checkNumberOnly,
-  clearCalendar: () => clearCalendar,
-  clearComma: () => clearComma,
-  closeChildWindows: () => closeChildWindows,
-  confirmApprove: () => confirmApprove,
-  confirmCancel: () => confirmCancel,
-  confirmClear: () => confirmClear,
-  confirmDelete: () => confirmDelete,
-  confirmDialog: () => confirmDialog,
-  confirmDialogBox: () => confirmDialogBox,
-  confirmErase: () => confirmErase,
-  confirmExport: () => confirmExport,
-  confirmImport: () => confirmImport,
-  confirmProcess: () => confirmProcess,
-  confirmReceive: () => confirmReceive,
-  confirmReject: () => confirmReject,
-  confirmRemove: () => confirmRemove,
-  confirmRequest: () => confirmRequest,
-  confirmResend: () => confirmResend,
-  confirmReset: () => confirmReset,
-  confirmRevise: () => confirmRevise,
-  confirmSave: () => confirmSave,
-  confirmSaveAs: () => confirmSaveAs,
-  confirmSend: () => confirmSend,
-  confirmUpdate: () => confirmUpdate,
-  confirmbox: () => confirmbox,
-  confirmmsg: () => confirmmsg,
-  createLinkStyle: () => createLinkStyle,
-  createNewPassword: () => createNewPassword,
-  decryptCipherData: () => decryptCipherData,
-  detectErrorResponse: () => detectErrorResponse,
-  disableControls: () => disableControls,
-  ensureTableSetting: () => ensureTableSetting,
-  fetchLabel: () => fetchLabel,
-  fetchMessageCode: () => fetchMessageCode,
-  formatDataTable: () => formatDataTable,
-  formatDecimal: () => formatDecimal,
-  formatFloating: () => formatFloating,
-  formatNumber: () => formatNumber,
-  generateUUID: () => generateUUID,
-  getAccessTokenKey: () => getAccessTokenKey,
-  getAccessorInfo: () => getAccessorInfo,
-  getAccessorToken: () => getAccessorToken,
-  getAlphabets: () => getAlphabets,
-  getApiLabel: () => getApiLabel,
-  getApiMessageCode: () => getApiMessageCode,
-  getApiToken: () => getApiToken,
-  getApiUrl: () => getApiUrl,
-  getAppInfo: () => getAppInfo,
-  getBaseCss: () => getBaseCss,
-  getBaseStorage: () => getBaseStorage,
-  getBaseUrl: () => getBaseUrl,
-  getCaretPosition: () => getCaretPosition,
-  getCdnUrl: () => getCdnUrl,
-  getChatUrl: () => getChatUrl,
-  getConfig: () => getConfig,
-  getControlClasses: () => getControlClasses,
-  getCurrentWindow: () => getCurrentWindow,
-  getDH: () => getDH,
-  getDefaultLabels: () => getDefaultLabels,
-  getDefaultLanguage: () => getDefaultLanguage,
-  getDefaultRawParameters: () => getDefaultRawParameters,
-  getDigits: () => getDigits,
-  getImgUrl: () => getImgUrl,
-  getLabel: () => getLabel,
-  getLabelItem: () => getLabelItem,
-  getLabelModel: () => getLabelModel,
-  getLabelObject: () => getLabelObject,
-  getMessageCode: () => getMessageCode,
-  getMetaInfo: () => getMetaInfo,
-  getMultiLanguages: () => getMultiLanguages,
-  getMultiLanguagesModel: () => getMultiLanguagesModel,
-  getPermitModel: () => getPermitModel,
-  getProgramLabels: () => getProgramLabels,
-  getProgramMessage: () => getProgramMessage,
-  getRandomNumber: () => getRandomNumber,
-  getRequestID: () => getRequestID,
-  getStorage: () => getStorage,
-  getTokenKey: () => getTokenKey,
-  getWindowByName: () => getWindowByName,
-  handleRequestMessage: () => handleRequestMessage,
-  indexOfAlphabets: () => indexOfAlphabets,
-  initAppConfig: () => initAppConfig,
-  initConfigure: () => initConfigure,
-  inputNumberOnly: () => inputNumberOnly,
-  isDigit: () => isDigit,
-  isLetter: () => isLetter,
-  isLowerCase: () => isLowerCase,
-  isSecureStorage: () => isSecureStorage,
-  isUpperCase: () => isUpperCase,
-  loadAndMergeLabel: () => loadAndMergeLabel,
-  loadAndMergeMessageCode: () => loadAndMergeMessageCode,
-  loadAndMergeProgramLabel: () => loadAndMergeProgramLabel,
-  loadAppConfig: () => loadAppConfig,
-  loadPermissions: () => loadPermissions,
-  mergeMessageCodes: () => mergeMessageCodes,
-  mergeProgramLabels: () => mergeProgramLabels,
-  openCalendar: () => openCalendar,
-  openNewWindow: () => openNewWindow,
-  parseErrorThrown: () => parseErrorThrown,
-  parseNumber: () => parseNumber,
-  putComma: () => putComma,
-  random: () => random,
-  randomNumber: () => randomNumber,
-  randomPassword: () => randomPassword,
-  randomize: () => randomize,
-  registerNotification: () => registerNotification,
-  removeAccessorInfo: () => removeAccessorInfo,
-  removeComma: () => removeComma,
-  removeDelimiter: () => removeDelimiter,
-  removeStorage: () => removeStorage,
-  replaceString: () => replaceString,
-  requestAccessorInfo: () => requestAccessorInfo,
-  resetRequestID: () => resetRequestID,
-  saveAccessorInfo: () => saveAccessorInfo,
-  sendMessageInterface: () => sendMessageInterface,
-  sendMessageToFrame: () => sendMessageToFrame,
-  sendMessageToOpener: () => sendMessageToOpener,
-  sendMessageToParent: () => sendMessageToParent,
-  serializeParameters: () => serializeParameters,
-  setApiToken: () => setApiToken,
-  setApiUrl: () => setApiUrl,
-  setBaseCss: () => setBaseCss,
-  setBaseStorage: () => setBaseStorage,
-  setBaseUrl: () => setBaseUrl,
-  setCaretPosition: () => setCaretPosition,
-  setCdnUrl: () => setCdnUrl,
-  setChatUrl: () => setChatUrl,
-  setCurrentWindow: () => setCurrentWindow,
-  setDefaultLabels: () => setDefaultLabels,
-  setDefaultLanguage: () => setDefaultLanguage,
-  setDefaultRawParameters: () => setDefaultRawParameters,
-  setImgUrl: () => setImgUrl,
-  setMessagingCallback: () => setMessagingCallback,
-  setMetaInfo: () => setMetaInfo,
-  setMultiLanguages: () => setMultiLanguages,
-  setProgramLabels: () => setProgramLabels,
-  setProgramMessage: () => setProgramMessage,
-  setSecureStorage: () => setSecureStorage,
-  setStorage: () => setStorage,
-  setTokenKey: () => setTokenKey,
-  setupApplication: () => setupApplication,
-  setupDiffie: () => setupDiffie,
-  startApplication: () => startApplication,
-  startWaiting: () => startWaiting,
-  stopWaiting: () => stopWaiting,
-  submitFailure: () => submitFailure,
-  submitWindow: () => submitWindow,
-  successbox: () => successbox,
-  triggerInput: () => triggerInput,
-  warningbox: () => warningbox
-});
-module.exports = __toCommonJS(index_exports);
-
 // src/app/app.util.ts
-var import_jquery2 = __toESM(require("jquery"));
-var import_bootbox = __toESM(require("bootbox"));
+import $2 from "jquery";
+import bootbox from "bootbox";
 
 // src/app/msg.util.ts
-var import_jquery = __toESM(require("jquery"));
+import $ from "jquery";
 function getMessageCode(errcode, params, defaultMessage) {
   if (errcode && errcode.trim().length > 0) {
     let program_message2 = getProgramMessage();
@@ -272,7 +66,7 @@ function loadAndMergeMessageCode(callback, loadMessageCode = String(getMetaInfo(
 function fetchMessageCode(code, callback, url = getApiMessageCode()) {
   console.log("fetchMessageCode: ", code);
   let authtoken = getAccessorToken();
-  import_jquery.default.ajax({
+  $.ajax({
     url,
     type: "POST",
     data: code ? JSON.stringify({ msgcode: code }) : "",
@@ -322,21 +116,21 @@ function buildFormParams(frm, params) {
     let prms = params.split("&");
     for (let prm of prms) {
       let kary = prm.split("=");
-      let inp = (0, import_jquery2.default)('<input type="hidden" name="' + kary[0] + '"></input>');
+      let inp = $2('<input type="hidden" name="' + kary[0] + '"></input>');
       inp.val(kary[1]);
       frm.append(inp);
     }
   } else if (Array.isArray(params)) {
     for (let prm of params) {
       if (prm.name) {
-        let inp = (0, import_jquery2.default)('<input type="hidden" name="' + prm.name + '"></input>');
+        let inp = $2('<input type="hidden" name="' + prm.name + '"></input>');
         inp.val(prm.value);
         frm.append(inp);
       }
     }
   } else if (params) {
     for (let prm in params) {
-      let inp = (0, import_jquery2.default)('<input type="hidden" name="' + prm + '"></input>');
+      let inp = $2('<input type="hidden" name="' + prm + '"></input>');
       inp.val(params[prm]);
       frm.append(inp);
     }
@@ -346,13 +140,13 @@ function submitWindow(settings) {
   let p = settings;
   if (p.url && p.url != "" && p.params) {
     let method = p.method || "POST";
-    let frm = (0, import_jquery2.default)("<form method='" + method + "'></form>");
+    let frm = $2("<form method='" + method + "'></form>");
     frm.attr("action", p.url);
     frm.attr("target", p.windowName);
     buildFormParams(frm, p.params);
-    let layer = (0, import_jquery2.default)("<div class='open-new-window-submit-layer'></div>");
+    let layer = $2("<div class='open-new-window-submit-layer'></div>");
     layer.append(frm);
-    (0, import_jquery2.default)("body").append(layer);
+    $2("body").append(layer);
     frm.trigger("submit");
     setTimeout(function() {
       layer.remove();
@@ -405,9 +199,9 @@ function openNewWindow(settings) {
 }
 function startWaiting() {
   try {
-    let dc = (0, import_jquery2.default)(document.body);
+    let dc = $2(document.body);
     let sh = dc.innerHeight();
-    let fslayer = (0, import_jquery2.default)("#fswaitlayer");
+    let fslayer = $2("#fswaitlayer");
     let lh = fslayer.height();
     let fstop = mouseY;
     if (lh !== void 0 && sh !== void 0) {
@@ -422,7 +216,7 @@ function startWaiting() {
   }
 }
 function stopWaiting() {
-  (0, import_jquery2.default)("#fswaitlayer").hide();
+  $2("#fswaitlayer").hide();
 }
 function submitFailure(xhr, status, errorThrown, checking = true) {
   stopWaiting();
@@ -499,7 +293,7 @@ function alertDialog(msg, callbackfn, title = "Alert", icon = "fa fa-bell-o fas 
   try {
     let fs_okbtn = getMessageCode("fsokbtn", void 0, "OK");
     let box = globalThis.bootbox;
-    if (!box) box = import_bootbox.default;
+    if (!box) box = bootbox;
     box.alert({
       title: "<em class='" + icon + "'></em>&nbsp;<label>" + title + "</label>",
       message: msg,
@@ -511,7 +305,7 @@ function alertDialog(msg, callbackfn, title = "Alert", icon = "fa fa-bell-o fas 
         ok: { label: fs_okbtn }
       }
     });
-    let dialog = (0, import_jquery2.default)(".bootbox > .modal-dialog");
+    let dialog = $2(".bootbox > .modal-dialog");
     dialog.draggable();
     return;
   } catch (ex) {
@@ -536,7 +330,7 @@ function confirmDialog(msg, okCallback, cancelCallback, title = "Confirmation", 
   try {
     let fs_confirmbtn = getMessageCode("fsconfirmbtn", void 0, "OK");
     let fs_cancelbtn = getMessageCode("fscancelbtn", void 0, "Cancel");
-    let box = globalThis.bootbox ?? import_bootbox.default;
+    let box = globalThis.bootbox ?? bootbox;
     box.confirm({
       title: "<em class='" + icon + "'></em>&nbsp;<label>" + title + "</label>",
       message: msg,
@@ -554,7 +348,7 @@ function confirmDialog(msg, okCallback, cancelCallback, title = "Confirmation", 
         cancel: { label: fs_cancelbtn }
       }
     });
-    let dialog = (0, import_jquery2.default)(".bootbox > .modal-dialog");
+    let dialog = $2(".bootbox > .modal-dialog");
     dialog.draggable();
   } catch (ex) {
     console.error(ex);
@@ -631,11 +425,11 @@ var mouseX = 0;
 var mouseY = 0;
 function startApplication(pid, callback) {
   console.log("startApplication: pid=" + pid);
-  (0, import_jquery2.default)(document).on("mousedown", function(e) {
+  $2(document).on("mousedown", function(e) {
     mouseX = e.pageX;
     mouseY = e.pageY;
   });
-  (0, import_jquery2.default)(globalThis).on("beforeunload", function(e) {
+  $2(globalThis).on("beforeunload", function(e) {
     if (fs_winary.length > 0) {
       e.preventDefault();
       e.returnValue = "";
@@ -644,7 +438,7 @@ function startApplication(pid, callback) {
   }).on("unload", function() {
     closeChildWindows();
   });
-  let modal = import_jquery2.default?.fn?.modal;
+  let modal = $2?.fn?.modal;
   if (!modal) modal = globalThis.jQuery?.fn?.modal;
   if (modal) {
     try {
@@ -722,8 +516,8 @@ function createLinkStyle(css_url) {
   }
 }
 function disableControls() {
-  (0, import_jquery2.default)(arguments).each(function(index, element) {
-    let $src = (0, import_jquery2.default)(element);
+  $2(arguments).each(function(index, element) {
+    let $src = $2(element);
     $src.attr("disabled", "true");
     setTimeout(function() {
       $src.removeAttr("disabled");
@@ -759,8 +553,8 @@ function randomize() {
 }
 
 // src/app/dh.ts
-var import_jquery3 = __toESM(require("jquery"));
-var import_crypto_js = __toESM(require("crypto-js"));
+import $3 from "jquery";
+import CryptoJS from "crypto-js";
 var getPrimes = function(min, max) {
   const isPrime = new Array(max + 1).fill(true);
   isPrime[0] = isPrime[1] = false;
@@ -817,30 +611,30 @@ var DH = class {
     this.otherPublicKey = "" + getPrimeNumber();
   }
   encryptText(word, keyBase64) {
-    let key = import_crypto_js.default.enc.Base64.parse(keyBase64);
-    let srcs = import_crypto_js.default.enc.Utf8.parse(word);
-    let encrypted = import_crypto_js.default.AES.encrypt(srcs, key, { mode: import_crypto_js.default.mode.ECB, padding: import_crypto_js.default.pad.Pkcs7 });
+    let key = CryptoJS.enc.Base64.parse(keyBase64);
+    let srcs = CryptoJS.enc.Utf8.parse(word);
+    let encrypted = CryptoJS.AES.encrypt(srcs, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
     return encrypted.toString();
   }
   decryptText(word, keyBase64) {
-    let key = import_crypto_js.default.enc.Base64.parse(keyBase64);
-    let decrypt = import_crypto_js.default.AES.decrypt(word, key, { mode: import_crypto_js.default.mode.ECB, padding: import_crypto_js.default.pad.Pkcs7 });
-    return import_crypto_js.default.enc.Utf8.stringify(decrypt).toString();
+    let key = CryptoJS.enc.Base64.parse(keyBase64);
+    let decrypt = CryptoJS.AES.decrypt(word, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+    return CryptoJS.enc.Utf8.stringify(decrypt).toString();
   }
   encrypt(word) {
-    let hash = import_crypto_js.default.SHA256(this.sharedKey);
-    let keyBase64 = hash.toString(import_crypto_js.default.enc.Base64);
-    let key = import_crypto_js.default.enc.Base64.parse(keyBase64);
-    let srcs = import_crypto_js.default.enc.Utf8.parse(word);
-    let encrypted = import_crypto_js.default.AES.encrypt(srcs, key, { mode: import_crypto_js.default.mode.ECB, padding: import_crypto_js.default.pad.Pkcs7 });
+    let hash = CryptoJS.SHA256(this.sharedKey);
+    let keyBase64 = hash.toString(CryptoJS.enc.Base64);
+    let key = CryptoJS.enc.Base64.parse(keyBase64);
+    let srcs = CryptoJS.enc.Utf8.parse(word);
+    let encrypted = CryptoJS.AES.encrypt(srcs, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
     return encrypted.toString();
   }
   decrypt(word) {
-    let hash = import_crypto_js.default.SHA256(this.sharedKey);
-    let keyBase64 = hash.toString(import_crypto_js.default.enc.Base64);
-    let key = import_crypto_js.default.enc.Base64.parse(keyBase64);
-    let decrypt = import_crypto_js.default.AES.decrypt(word, key, { mode: import_crypto_js.default.mode.ECB, padding: import_crypto_js.default.pad.Pkcs7 });
-    return import_crypto_js.default.enc.Utf8.stringify(decrypt).toString();
+    let hash = CryptoJS.SHA256(this.sharedKey);
+    let keyBase64 = hash.toString(CryptoJS.enc.Base64);
+    let key = CryptoJS.enc.Base64.parse(keyBase64);
+    let decrypt = CryptoJS.AES.decrypt(word, key, { mode: CryptoJS.mode.ECB, padding: CryptoJS.pad.Pkcs7 });
+    return CryptoJS.enc.Utf8.stringify(decrypt).toString();
   }
   computePublicKey() {
     let G = BigInt(this.generator);
@@ -880,7 +674,7 @@ var DH = class {
     if (!aurl) aurl = getApiUrl() + "/api/crypto/dh";
     let authtoken = this.getAccessorToken();
     let requestid = this.getRequestID();
-    import_jquery3.default.ajax({
+    $3.ajax({
       url: aurl,
       type: "POST",
       dataType: "json",
@@ -908,7 +702,7 @@ var DH = class {
     if (!aurl) aurl = getApiUrl() + "/api/crypto/dh";
     let authtoken = this.getAccessorToken();
     let requestid = this.getRequestID();
-    import_jquery3.default.ajax({
+    $3.ajax({
       url: aurl,
       type: "POST",
       data: {
@@ -931,7 +725,7 @@ var DH = class {
     if (!aurl) aurl = getApiUrl() + "/api/crypto/update";
     let authtoken = this.getAccessorToken();
     let requestid = this.getRequestID();
-    import_jquery3.default.ajax({
+    $3.ajax({
       url: aurl,
       type: "POST",
       data: {
@@ -953,13 +747,13 @@ var DH = class {
 };
 
 // src/app/messenger.ts
-var import_secure_ls = __toESM(require("secure-ls"));
+import SecureLS from "secure-ls";
 var messagingCallback;
 var currentWindow;
 var secureEngine;
 function getSecureEngine() {
   if (!secureEngine) {
-    secureEngine = isSecureStorage() ? new import_secure_ls.default({ storage: "local" == getBaseStorage() ? localStorage : sessionStorage }) : null;
+    secureEngine = isSecureStorage() ? new SecureLS({ storage: "local" == getBaseStorage() ? localStorage : sessionStorage }) : null;
   }
   return secureEngine;
 }
@@ -1452,7 +1246,7 @@ function initAppConfig(callback) {
 }
 
 // src/app/ctrl.util.ts
-var import_jquery4 = __toESM(require("jquery"));
+import $4 from "jquery";
 
 // src/app/Utilities.ts
 var Utilities = class {
@@ -1986,7 +1780,7 @@ function getControlClasses(attrClass, ...classes) {
   return ctrlClasses;
 }
 function clearCalendar(src) {
-  let dpkr = (0, import_jquery4.default)(src);
+  let dpkr = $4(src);
   if (dpkr.is(":disabled")) return;
   if (dpkr.is("[readonly]")) {
     let edit = dpkr.attr("editable");
@@ -1998,7 +1792,7 @@ function clearCalendar(src) {
   if (ifn) ifn("", dpkr);
 }
 function openCalendar(src) {
-  let dpkr = (0, import_jquery4.default)(src);
+  let dpkr = $4(src);
   if (dpkr.is(":disabled")) return;
   if (dpkr.is("[readonly]")) {
     let edit = dpkr.attr("editable");
@@ -2020,7 +1814,7 @@ function openCalendar(src) {
       }
     });
     picker.datepicker("show");
-    (0, import_jquery4.default)(document).off("focusin");
+    $4(document).off("focusin");
     return;
   } catch (ex) {
     console.error(ex);
@@ -2492,7 +2286,7 @@ var KnMask = class _KnMask {
 };
 
 // src/app/label.util.ts
-var import_jquery5 = __toESM(require("jquery"));
+import $5 from "jquery";
 function getLabel(name, defaultLabel, lang = getDefaultLanguage()) {
   let result = void 0;
   let default_labels2 = getDefaultLabels();
@@ -2599,7 +2393,7 @@ function loadAndMergeProgramLabel(id, callback, loadLabel = String(getMetaInfo()
 function fetchLabel(id, callback, url = getApiLabel()) {
   console.log("fetchLabel:", id);
   let authtoken = getAccessorToken();
-  import_jquery5.default.ajax({
+  $5.ajax({
     url,
     type: "POST",
     data: JSON.stringify({ labelid: id }),
@@ -2846,8 +2640,7 @@ function random(len = 6, alphabets = ALPHABETS) {
 function randomNumber(len = 6, alphabets = NUMERICS) {
   return random(len, alphabets);
 }
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
+export {
   ALPHABETS,
   DEFAULT_CONTENT_TYPE,
   DEFAULT_PAGE_SETTINGS,
@@ -3019,4 +2812,4 @@ function randomNumber(len = 6, alphabets = NUMERICS) {
   successbox,
   triggerInput,
   warningbox
-});
+};
