@@ -280,7 +280,13 @@ export declare function getApiMessageCode(): any;
 export declare function loadAndMergeMessageCode(callback?: Function, loadMessageCode?: boolean, url?: string): void;
 export declare function fetchMessageCode(code?: string, callback?: Function, url?: string): void;
 
-export declare const DEFAULT_PAGE_SETTINGS: {
+export declare const DEFAULT_PAGE_SETTINGS: PagingOffsetsInfo;
+export interface PagingNumberInfo {
+    page: number;
+    text: string;
+    css: string;
+}
+export interface PagingOffsetsInfo {
     page: number;
     rowsPerPage: number;
     totalRows: number;
@@ -288,22 +294,11 @@ export declare const DEFAULT_PAGE_SETTINGS: {
     limit: number;
     offset: number;
     rows: number;
-};
-export interface PagingNumberInfo {
-    page: number;
-    text: string;
-    css: string;
+    orderBy?: string;
+    orderDir?: string;
 }
 export declare class Paging {
-    setting: {
-        page: number;
-        rowsPerPage: number;
-        totalRows: number;
-        totalPages: number;
-        limit: number;
-        offset: number;
-        rows: number;
-    };
+    setting: PagingOffsetsInfo;
     constructor(setting?: {});
     clear(): void;
     reset(setting: Object): void;
