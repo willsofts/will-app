@@ -1,9 +1,19 @@
+// src/app/jquery.util.ts
+import $ from "jquery";
+function getJQuery() {
+  const jq = globalThis.jQuery || globalThis.$;
+  if (!jq) {
+    console.warn("jQuery not found. Please load jquery first.");
+    return $;
+  }
+  return jq;
+}
+var jquery_util_default = getJQuery();
+
 // src/app/app.util.ts
-import $2 from "jquery";
 import bootbox from "bootbox";
 
 // src/app/msg.util.ts
-import $ from "jquery";
 function getMessageCode(errcode, params, defaultMessage) {
   if (errcode && errcode.trim().length > 0) {
     let program_message2 = getProgramMessage();
@@ -66,7 +76,7 @@ function loadAndMergeMessageCode(callback, loadMessageCode = String(getMetaInfo(
 function fetchMessageCode(code, callback, url = getApiMessageCode()) {
   console.log("fetchMessageCode: ", code);
   let authtoken = getAccessorToken();
-  $.ajax({
+  jquery_util_default.ajax({
     url,
     type: "POST",
     data: code ? JSON.stringify({ msgcode: code }) : "",
@@ -116,21 +126,21 @@ function buildFormParams(frm, params) {
     let prms = params.split("&");
     for (let prm of prms) {
       let kary = prm.split("=");
-      let inp = $2('<input type="hidden" name="' + kary[0] + '"></input>');
+      let inp = jquery_util_default('<input type="hidden" name="' + kary[0] + '"></input>');
       inp.val(kary[1]);
       frm.append(inp);
     }
   } else if (Array.isArray(params)) {
     for (let prm of params) {
       if (prm.name) {
-        let inp = $2('<input type="hidden" name="' + prm.name + '"></input>');
+        let inp = jquery_util_default('<input type="hidden" name="' + prm.name + '"></input>');
         inp.val(prm.value);
         frm.append(inp);
       }
     }
   } else if (params) {
     for (let prm in params) {
-      let inp = $2('<input type="hidden" name="' + prm + '"></input>');
+      let inp = jquery_util_default('<input type="hidden" name="' + prm + '"></input>');
       inp.val(params[prm]);
       frm.append(inp);
     }
@@ -140,13 +150,13 @@ function submitWindow(settings) {
   let p = settings;
   if (p.url && p.url != "" && p.params) {
     let method = p.method || "POST";
-    let frm = $2("<form method='" + method + "'></form>");
+    let frm = jquery_util_default("<form method='" + method + "'></form>");
     frm.attr("action", p.url);
     frm.attr("target", p.windowName);
     buildFormParams(frm, p.params);
-    let layer = $2("<div class='open-new-window-submit-layer'></div>");
+    let layer = jquery_util_default("<div class='open-new-window-submit-layer'></div>");
     layer.append(frm);
-    $2("body").append(layer);
+    jquery_util_default("body").append(layer);
     frm.trigger("submit");
     setTimeout(function() {
       layer.remove();
@@ -199,9 +209,9 @@ function openNewWindow(settings) {
 }
 function startWaiting() {
   try {
-    let dc = $2(document.body);
+    let dc = jquery_util_default(document.body);
     let sh = dc.innerHeight();
-    let fslayer = $2("#fswaitlayer");
+    let fslayer = jquery_util_default("#fswaitlayer");
     let lh = fslayer.height();
     let fstop = mouseY;
     if (lh !== void 0 && sh !== void 0) {
@@ -216,7 +226,7 @@ function startWaiting() {
   }
 }
 function stopWaiting() {
-  $2("#fswaitlayer").hide();
+  jquery_util_default("#fswaitlayer").hide();
 }
 function submitFailure(xhr, status, errorThrown, checking = true) {
   stopWaiting();
@@ -305,7 +315,7 @@ function alertDialog(msg, callbackfn, title = "Alert", icon = "fa fa-bell-o fas 
         ok: { label: fs_okbtn }
       }
     });
-    let dialog = $2(".bootbox > .modal-dialog");
+    let dialog = jquery_util_default(".bootbox > .modal-dialog");
     dialog.draggable();
     return;
   } catch (ex) {
@@ -348,7 +358,7 @@ function confirmDialog(msg, okCallback, cancelCallback, title = "Confirmation", 
         cancel: { label: fs_cancelbtn }
       }
     });
-    let dialog = $2(".bootbox > .modal-dialog");
+    let dialog = jquery_util_default(".bootbox > .modal-dialog");
     dialog.draggable();
   } catch (ex) {
     console.error(ex);
@@ -425,11 +435,11 @@ var mouseX = 0;
 var mouseY = 0;
 function startApplication(pid, callback) {
   console.log("startApplication: pid=" + pid);
-  $2(document).on("mousedown", function(e) {
+  jquery_util_default(document).on("mousedown", function(e) {
     mouseX = e.pageX;
     mouseY = e.pageY;
   });
-  $2(globalThis).on("beforeunload", function(e) {
+  jquery_util_default(globalThis).on("beforeunload", function(e) {
     if (fs_winary.length > 0) {
       e.preventDefault();
       e.returnValue = "";
@@ -438,7 +448,7 @@ function startApplication(pid, callback) {
   }).on("unload", function() {
     closeChildWindows();
   });
-  let modal = $2?.fn?.modal;
+  let modal = jquery_util_default?.fn?.modal;
   if (!modal) modal = globalThis.jQuery?.fn?.modal;
   if (modal) {
     try {
@@ -516,8 +526,8 @@ function createLinkStyle(css_url) {
   }
 }
 function disableControls() {
-  $2(arguments).each(function(index, element) {
-    let $src = $2(element);
+  jquery_util_default(arguments).each(function(index, element) {
+    let $src = jquery_util_default(element);
     $src.attr("disabled", "true");
     setTimeout(function() {
       $src.removeAttr("disabled");
@@ -553,7 +563,6 @@ function randomize() {
 }
 
 // src/app/dh.ts
-import $3 from "jquery";
 import CryptoJS from "crypto-js";
 var getPrimes = function(min, max) {
   const isPrime = new Array(max + 1).fill(true);
@@ -674,7 +683,7 @@ var DH = class {
     if (!aurl) aurl = getApiUrl() + "/api/crypto/dh";
     let authtoken = this.getAccessorToken();
     let requestid = this.getRequestID();
-    $3.ajax({
+    jquery_util_default.ajax({
       url: aurl,
       type: "POST",
       dataType: "json",
@@ -702,7 +711,7 @@ var DH = class {
     if (!aurl) aurl = getApiUrl() + "/api/crypto/dh";
     let authtoken = this.getAccessorToken();
     let requestid = this.getRequestID();
-    $3.ajax({
+    jquery_util_default.ajax({
       url: aurl,
       type: "POST",
       data: {
@@ -725,7 +734,7 @@ var DH = class {
     if (!aurl) aurl = getApiUrl() + "/api/crypto/update";
     let authtoken = this.getAccessorToken();
     let requestid = this.getRequestID();
-    $3.ajax({
+    jquery_util_default.ajax({
       url: aurl,
       type: "POST",
       data: {
@@ -1028,23 +1037,24 @@ function bindingParentMessaging(callback) {
 }
 
 // src/app/app.info.ts
+var env = (typeof import.meta !== "undefined" && import.meta.env) ?? (typeof process !== "undefined" ? process.env : {});
 var appInfo = {
-  DEFAULT_LANGUAGE: process.env.VUE_APP_DEFAULT_LANGUAGE,
-  API_URL: process.env.VUE_APP_API_URL,
-  BASE_URL: process.env.VUE_APP_BASE_URL,
-  CDN_URL: process.env.VUE_APP_CDN_URL,
-  IMG_URL: process.env.VUE_APP_IMG_URL,
-  CHAT_URL: process.env.VUE_APP_CHAT_URL,
-  BASE_STORAGE: process.env.VUE_APP_BASE_STORAGE,
-  API_TOKEN: process.env.VUE_APP_API_TOKEN,
-  DEFAULT_RAW_PARAMETERS: process.env.VUE_APP_DEFAULT_RAW_PARAMETERS == "true",
-  SECURE_STORAGE: process.env.VUE_APP_SECURE_STORAGE == "true",
-  BASE_CSS: process.env.VUE_APP_BASE_CSS,
+  DEFAULT_LANGUAGE: env.VUE_APP_DEFAULT_LANGUAGE,
+  API_URL: env.VUE_APP_API_URL,
+  BASE_URL: env.VUE_APP_BASE_URL,
+  CDN_URL: env.VUE_APP_CDN_URL,
+  IMG_URL: env.VUE_APP_IMG_URL,
+  CHAT_URL: env.VUE_APP_CHAT_URL,
+  BASE_STORAGE: env.VUE_APP_BASE_STORAGE,
+  API_TOKEN: env.VUE_APP_API_TOKEN,
+  DEFAULT_RAW_PARAMETERS: env.VUE_APP_DEFAULT_RAW_PARAMETERS == "true",
+  SECURE_STORAGE: env.VUE_APP_SECURE_STORAGE == "true",
+  BASE_CSS: env.VUE_APP_BASE_CSS,
   MULTI_LANGUAGES: ["EN", "TH"],
-  TOKEN_KEY: process.env.VUE_APP_TOKEN_KEY,
+  TOKEN_KEY: env.VUE_APP_TOKEN_KEY,
   META_INFO: {}
 };
-var APP_MULTI_LANGUAGES = process.env.VUE_APP_MULTI_LANGUAGES;
+var APP_MULTI_LANGUAGES = env.VUE_APP_MULTI_LANGUAGES;
 if (APP_MULTI_LANGUAGES && APP_MULTI_LANGUAGES.trim().length > 0) {
   let multilangs = JSON.parse(APP_MULTI_LANGUAGES);
   if (Array.isArray(multilangs)) appInfo.MULTI_LANGUAGES = multilangs;
@@ -1244,9 +1254,6 @@ function initAppConfig(callback) {
     console.error(ex);
   }
 }
-
-// src/app/ctrl.util.ts
-import $4 from "jquery";
 
 // src/app/Utilities.ts
 var Utilities = class {
@@ -1780,7 +1787,7 @@ function getControlClasses(attrClass, ...classes) {
   return ctrlClasses;
 }
 function clearCalendar(src) {
-  let dpkr = $4(src);
+  let dpkr = jquery_util_default(src);
   if (dpkr.is(":disabled")) return;
   if (dpkr.is("[readonly]")) {
     let edit = dpkr.attr("editable");
@@ -1792,7 +1799,7 @@ function clearCalendar(src) {
   if (ifn) ifn("", dpkr);
 }
 function openCalendar(src) {
-  let dpkr = $4(src);
+  let dpkr = jquery_util_default(src);
   if (dpkr.is(":disabled")) return;
   if (dpkr.is("[readonly]")) {
     let edit = dpkr.attr("editable");
@@ -1814,7 +1821,7 @@ function openCalendar(src) {
       }
     });
     picker.datepicker("show");
-    $4(document).off("focusin");
+    jquery_util_default(document).off("focusin");
     return;
   } catch (ex) {
     console.error(ex);
@@ -2286,7 +2293,6 @@ var KnMask = class _KnMask {
 };
 
 // src/app/label.util.ts
-import $5 from "jquery";
 function getLabel(name, defaultLabel, lang = getDefaultLanguage()) {
   let result = void 0;
   let default_labels2 = getDefaultLabels();
@@ -2393,7 +2399,7 @@ function loadAndMergeProgramLabel(id, callback, loadLabel = String(getMetaInfo()
 function fetchLabel(id, callback, url = getApiLabel()) {
   console.log("fetchLabel:", id);
   let authtoken = getAccessorToken();
-  $5.ajax({
+  jquery_util_default.ajax({
     url,
     type: "POST",
     data: JSON.stringify({ labelid: id }),

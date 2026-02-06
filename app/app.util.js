@@ -1,4 +1,4 @@
-import $ from "jquery";
+import $ from "./jquery.util";
 import bootbox from "bootbox";
 import { getMessageCode } from "./msg.util";
 import { getAccessorToken, requestAccessorInfo, getDH, getAccessTokenKey } from "./messenger";
