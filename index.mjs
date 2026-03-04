@@ -1184,6 +1184,9 @@ function setDefaultLabels(labels) {
 function setProgramLabels(labels) {
   program_labels = labels;
 }
+function isDisplayPageHeader() {
+  return String(getMetaInfo()?.DISPLAY_PAGE_HEADER) != "false";
+}
 function appInit(options, callback) {
   const settings = options ?? { program_message, default_labels, program_labels, listen_messaging: "child" };
   const setting = { listen_messaging: "child", ...settings };
@@ -2760,6 +2763,7 @@ export {
   initConfigure,
   inputNumberOnly,
   isDigit,
+  isDisplayPageHeader,
   isLetter,
   isLowerCase,
   isSecureStorage,

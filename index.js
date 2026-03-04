@@ -138,6 +138,7 @@ __export(index_exports, {
   initConfigure: () => initConfigure,
   inputNumberOnly: () => inputNumberOnly,
   isDigit: () => isDigit,
+  isDisplayPageHeader: () => isDisplayPageHeader,
   isLetter: () => isLetter,
   isLowerCase: () => isLowerCase,
   isSecureStorage: () => isSecureStorage,
@@ -1393,6 +1394,9 @@ function setDefaultLabels(labels) {
 }
 function setProgramLabels(labels) {
   program_labels = labels;
+}
+function isDisplayPageHeader() {
+  return String(getMetaInfo()?.DISPLAY_PAGE_HEADER) != "false";
 }
 function appInit(options, callback) {
   const settings = options ?? { program_message, default_labels, program_labels, listen_messaging: "child" };
@@ -2971,6 +2975,7 @@ function randomNumber(len = 6, alphabets = NUMERICS) {
   initConfigure,
   inputNumberOnly,
   isDigit,
+  isDisplayPageHeader,
   isLetter,
   isLowerCase,
   isSecureStorage,
