@@ -3,7 +3,8 @@ import bootbox from "bootbox";
 import { getMessageCode } from "./msg.util";
 import { getAccessorToken, requestAccessorInfo, getDH, getAccessTokenKey } from "./messenger";
 import { getDefaultRawParameters, getDefaultLanguage } from "./app.info";
-const fs_winary = new Array();
+export const fs_winary = new Array();
+export function getChildWindows() { return fs_winary; }
 export function getWindowOpen(win) {
     return fs_winary.find(w => win == w);
 }
