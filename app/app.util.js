@@ -4,7 +4,11 @@ import { getMessageCode } from "./msg.util";
 import { getAccessorToken, requestAccessorInfo, getDH, getAccessTokenKey } from "./messenger";
 import { getDefaultRawParameters, getDefaultLanguage } from "./app.info";
 export const fs_winary = new Array();
+let drag_function;
 export function getChildWindows() { return fs_winary; }
+export function setDragFunction(func) {
+    drag_function = func;
+}
 export function getWindowOpen(win) {
     return fs_winary.find(w => win == w);
 }
@@ -251,7 +255,10 @@ export function alertDialog(msg, callbackfn, title = "Alert", icon = "fa fa-bell
             }
         });
         let dialog = $(".bootbox > .modal-dialog");
-        dialog.draggable();
+        if (drag_function)
+            drag_function(dialog);
+        else
+            dialog.draggable();
         return;
     }
     catch (ex) {
@@ -303,7 +310,10 @@ export function confirmDialog(msg, okCallback, cancelCallback, title = "Confirma
             }
         });
         let dialog = $(".bootbox > .modal-dialog");
-        dialog.draggable();
+        if (drag_function)
+            drag_function(dialog);
+        else
+            dialog.draggable();
     }
     catch (ex) {
         console.error(ex);
